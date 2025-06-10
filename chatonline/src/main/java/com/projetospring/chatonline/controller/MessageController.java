@@ -2,12 +2,11 @@ package com.projetospring.chatonline.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.ws.server.endpoint.annotation.Endpoint;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.projetospring.chatonline.repository.MessageRepository;
 
-@Controller
+@RestController
 public class MessageController {
 
 	@Autowired
