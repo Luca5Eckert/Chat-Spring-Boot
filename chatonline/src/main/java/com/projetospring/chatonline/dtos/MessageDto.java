@@ -1,5 +1,7 @@
 package com.projetospring.chatonline.dtos;
 
-public class MessageDto {
+import com.projetospring.chatonline.model.User;
+
+public record MessageDto(String content, User sendBy) {
 
 }
