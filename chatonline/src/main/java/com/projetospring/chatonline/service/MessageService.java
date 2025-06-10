@@ -9,7 +9,10 @@ import com.projetospring.chatonline.repository.MessageRepository;
 public class MessageService {
 
 	@Autowired
-	private MessageRepository repository;
+	private final MessageRepository repository;
 	
+	public MessageService(MessageRepository repository) {
+		this.repository = repository;
+	}
 	
 }
