@@ -19,20 +19,20 @@ public class Room {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id;
+	private final UUID id;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private TypeRoom type;
+	private final TypeRoom type;
 
 	@Column(nullable = false)
-	private int numberOfPeople;
+	private final int numberOfPeople;
 
 	@Column(nullable = false)
-	private LocalDateTime createAt;
+	private final LocalDateTime createAt;
 
 	@Column(nullable = false)
-	private String description;
+	private final String description;
 
 	private Room(UUID id, TypeRoom type, int numberOfPeople, LocalDateTime createAt, String description) {
 		this.id = id;
@@ -47,35 +47,35 @@ public class Room {
 		return new Room(id, type, numberOfPeople, createAt, description);
 	}
 
-	public String getDescription() {
+	String getDescription() {
 		return new String(description);
 	}
 
-	public boolean isItFull() {
+	boolean isItFull() {
 		return numberOfPeople == MAX_PEOPLE;
 	}
 
-	public boolean canAdd(int numberOfPeopleAdd) {
+	boolean canAdd(int numberOfPeopleAdd) {
 		return (numberOfPeopleAdd + this.numberOfPeople) <= MAX_PEOPLE;
 	}
 
-	public static int getMaxPeople() {
+	static int getMaxPeople() {
 		return MAX_PEOPLE;
 	}
 
-	public UUID getId() {
+	UUID getId() {
 		return id;
 	}
 
-	public TypeRoom getType() {
+	TypeRoom getType() {
 		return type;
 	}
 
-	public int getNumberOfPeople() {
+	int getNumberOfPeople() {
 		return numberOfPeople;
 	}
 
-	public LocalDateTime getCreateAt() {
+	LocalDateTime getCreateAt() {
 		return createAt;
 	}
 

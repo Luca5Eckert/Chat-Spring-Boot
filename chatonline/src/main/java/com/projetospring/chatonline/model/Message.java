@@ -8,8 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne; 
-import jakarta.persistence.JoinColumn; 
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,26 +18,31 @@ public class Message {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id; 
+	private final UUID id;
 
-	@ManyToOne 
-	@JoinColumn(name = "sender_id", nullable = false) 
-	private User sendBy; 
+	@ManyToOne
+	@JoinColumn(name = "sender_id", nullable = false)
+	private final User sendBy;
 
 	@ManyToOne
 	@JoinColumn(name = "room_id", nullable = false)
-	private Room sendFor; 
+	private final Room sendFor;
 
 	@Column(nullable = false)
-	private LocalDateTime sendAt;
+	private final LocalDateTime sendAt;
 
 	@Column(nullable = false)
-	private String content; 
+	private final String content;
 
-	public Message() {
+	private Message() {
+		this.id = null;
+		this.sendBy = null;
+		this.sendFor = null;
+		this.sendAt = null;
+		this.content = "";
 	}
 
-	public Message(UUID id, User sendBy, Room sendFor, LocalDateTime sendAt, String content) {
+	private Message(UUID id, User sendBy, Room sendFor, LocalDateTime sendAt, String content) {
 		this.id = id;
 		this.sendBy = sendBy;
 		this.sendFor = sendFor;
@@ -45,43 +50,28 @@ public class Message {
 		this.content = content;
 	}
 
-	public UUID getId() {
+	public static Message createMessage(UUID id, User sendBy, Room sendFor, LocalDateTime sendAt, String content) {
+		return new Message(id, sendBy, sendFor, sendAt, content);
+	}
+
+	UUID getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public User getSendBy() {
+	User getSendBy() {
 		return sendBy;
 	}
 
-	public void setSendBy(User sendBy) {
-		this.sendBy = sendBy;
-	}
-
-	public Room getSendFor() {
+	Room getSendFor() {
 		return sendFor;
 	}
 
-	public void setSendFor(Room sendFor) {
-		this.sendFor = sendFor;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public LocalDateTime getSendAt() {
+	LocalDateTime getSendAt() {
 		return sendAt;
 	}
 
-	public void setSendAt(LocalDateTime sendAt) {
-		this.sendAt = sendAt;
+	String getContent() {
+		return content;
 	}
+
 }
