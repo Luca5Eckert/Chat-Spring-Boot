@@ -1,11 +1,11 @@
 package com.projetospring.chatonline.repository;
 
 import java.util.UUID;
-
-import org.springframework.data.repository.Repository;
-
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import com.projetospring.chatonline.model.Message;
 
-public class MessageRepository implements Repository<UUID,Message>{
+@Repository
+public interface MessageRepository extends JpaRepository<Message,UUID>{
 
 }
