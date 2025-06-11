@@ -2,13 +2,13 @@ package com.projetospring.chatonline.service.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.projetospring.chatonline.annotations.UsernameUnique;
+import com.projetospring.chatonline.annotations.UniqueUsername;
 import com.projetospring.chatonline.repository.UserRepository;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class UniqueUsernameValidator implements ConstraintValidator<UsernameUnique, String> {
+public class UniqueUsernameValidator implements ConstraintValidator<UniqueUsername, String> {
 	
 	@Autowired
 	private UserRepository repository;
