@@ -1,5 +1,6 @@
 package com.projetospring.chatonline.model;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -22,7 +23,7 @@ public class User {
 	private final UUID id;
 
 	@Column(nullable = false)
-	private final String name;
+	private final String username;
 
 	@Column(nullable = false, unique = true)
 	private final String email;
@@ -34,32 +35,29 @@ public class User {
 	@Column(name = "type")
 	private final TypeUser type;
 
-	private User() {
-		this.id = null;
-		this.name = "";
-		this.email = "";
-		this.password = "";
-		this.type = null;
-	}
+	@Column(name = "createAt")
+	private final LocalDateTime createAt;
 
-	private User(UUID id, String name, String email, String password, TypeUser type) {
+	private User(UUID id, String username, String email, String password, TypeUser type, LocalDateTime createAt) {
 		this.id = id;
-		this.name = name;
+		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.type = type;
+		this.createAt = createAt;
 	}
 
-	public static User createUser(UUID id, String name, String email, String password, TypeUser type) {
-		return new User(id, name, email, password, type);
+	public static User createUser(UUID id, String name, String email, String password, TypeUser type,
+			LocalDateTime createAt) {
+		return new User(id, name, email, password, type, createAt);
 	}
 
 	UUID getId() {
 		return id;
 	}
 
-	String getName() {
-		return name;
+	String getUsername() {
+		return username;
 	}
 
 	String getEmail() {
