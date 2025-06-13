@@ -3,6 +3,8 @@ package com.projetospring.chatonline.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.projetospring.chatonline.annotations.StrongPassword;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,6 +13,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Value;
 
 @Entity
@@ -23,17 +27,18 @@ public class User {
 	private final UUID id;
 
 	@Column(nullable = false)
-	private final String username;
+	private String username;
 
 	@Column(nullable = false, unique = true)
-	private final String email;
+	private String email;
 
 	@Column(nullable = false)
-	private final String password;
+	@StrongPassword
+	private String password;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "type")
-	private final TypeUser type;
+	private TypeUser type;
 
 	@Column(name = "createAt")
 	private final LocalDateTime createAt;
@@ -50,6 +55,22 @@ public class User {
 	public static User createUser(UUID id, String name, String email, String password, TypeUser type,
 			LocalDateTime createAt) {
 		return new User(id, name, email, password, type, createAt);
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setEmail(@NotBlank String email) {
+		this.email = email;
+	}
+
+	public void setPassword(@NotBlank String password) {
+		this.password = password;
+	}
+
+	public void setType(@NotNull TypeUser type) {
+		this.type = type;
 	}
 
 	UUID getId() {

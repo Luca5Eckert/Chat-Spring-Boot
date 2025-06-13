@@ -32,15 +32,7 @@ public class Message {
 	private final LocalDateTime sendAt;
 
 	@Column(nullable = false)
-	private final String content;
-
-	private Message() {
-		this.id = null;
-		this.sendBy = null;
-		this.sendFor = null;
-		this.sendAt = null;
-		this.content = "";
-	}
+	private String content;
 
 	private Message(UUID id, User sendBy, Room sendFor, LocalDateTime sendAt, String content) {
 		this.id = id;
