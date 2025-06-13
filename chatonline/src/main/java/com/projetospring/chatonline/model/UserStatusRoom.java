@@ -1,12 +1,20 @@
 package com.projetospring.chatonline.model;
 
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotNull;
+
 public class UserStatusRoom {
 
+	@Column(nullable = false)
 	private final User user;
-	private final Room room;
-	private final TypeRoomAccess roomAccess;
 
-	private UserStatusRoom(UserStatusRoomBuilder userStatusRoomBuilder) {
+	@Column(nullable = false)
+	private final Room room;
+
+	@Column(nullable = false)
+	private TypeRoomAccess roomAccess;
+
+	private UserStatusRoom(@NotNull UserStatusRoomBuilder userStatusRoomBuilder) {
 		this.user = userStatusRoomBuilder.user;
 		this.room = userStatusRoomBuilder.room;
 		this.roomAccess = userStatusRoomBuilder.roomAccess;
@@ -22,6 +30,10 @@ public class UserStatusRoom {
 
 	public TypeRoomAccess getRoomAccess() {
 		return roomAccess;
+	}
+
+	public void setRoomAccess(@NotNull TypeRoomAccess roomAccess) {
+		this.roomAccess = roomAccess;
 	}
 
 	public class UserStatusRoomBuilder {

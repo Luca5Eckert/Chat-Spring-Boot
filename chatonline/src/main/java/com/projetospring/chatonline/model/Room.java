@@ -26,13 +26,13 @@ public class Room {
 	private final TypeRoom type;
 
 	@Column(nullable = false)
-	private final int numberOfPeople;
+	private int numberOfPeople;
 
 	@Column(nullable = false)
 	private final LocalDateTime createAt;
 
 	@Column(nullable = false)
-	private final String description;
+	private String description;
 
 	private Room(UUID id, TypeRoom type, int numberOfPeople, LocalDateTime createAt, String description) {
 		this.id = id;
@@ -45,6 +45,17 @@ public class Room {
 	public static Room createRoom(UUID id, TypeRoom type, int numberOfPeople, LocalDateTime createAt,
 			String description) {
 		return new Room(id, type, numberOfPeople, createAt, description);
+	}
+
+	public void setNumberOfPeople(int numberOfPeople) {
+		if (!(numberOfPeople >= 0)) {
+			this.numberOfPeople = numberOfPeople;
+		}
+		throw new RuntimeException("The number of people in a room can not be negative");
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	String getDescription() {
