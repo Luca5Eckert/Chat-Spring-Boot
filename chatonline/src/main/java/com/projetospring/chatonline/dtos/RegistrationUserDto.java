@@ -13,4 +13,5 @@ public record RegistrationUserDto(@UniqueUsername @NotBlank(message = "The usern
 		return password.equals(confirmationPassword);
 	}
 
+
 }

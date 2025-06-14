@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.projetospring.chatonline.dtos.RegistrationUserDto;
 import com.projetospring.chatonline.infrastructure.PasswordEncoder;
 import com.projetospring.chatonline.model.TypeUser;
@@ -21,6 +24,7 @@ public class RegisterCase {
 	@Autowired
 	private PasswordEncoder encoder;
 
+
 	public void execute(RegistrationUserDto userRegister) {
 		User user = registerToUser(userRegister);
 		repository.save(user);
@@ -30,7 +34,7 @@ public class RegisterCase {
 		if(!(userRegister.isTheSamePassword())) {
 			throw new MethodArgumentNotValidException(null, null);
 		}
-	}
+  }
 
 	private User registerToUser(RegistrationUserDto userRegister) {
 		String encodedPassword = encoder.encryptPassword(userRegister.password());
