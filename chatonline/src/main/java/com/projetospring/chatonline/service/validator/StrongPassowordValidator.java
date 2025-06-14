@@ -1,6 +1,5 @@
 package com.projetospring.chatonline.service.validator;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.projetospring.chatonline.annotations.StrongPassword;

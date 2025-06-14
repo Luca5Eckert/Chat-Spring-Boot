@@ -15,11 +15,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 
 @Entity
 @Table(name = "user_tb")
 @Value
+@NoArgsConstructor
 public class User {
 
 	@Id
@@ -33,7 +35,6 @@ public class User {
 	private String email;
 
 	@Column(nullable = false)
-	@StrongPassword
 	private String password;
 
 	@Enumerated(EnumType.STRING)
@@ -42,6 +43,11 @@ public class User {
 
 	@Column(name = "createAt")
 	private final LocalDateTime createAt;
+
+	private User() {
+		this.id = null;
+		this.createAt = null;
+	}
 
 	private User(UUID id, String username, String email, String password, TypeUser type, LocalDateTime createAt) {
 		this.id = id;
