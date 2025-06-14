@@ -1,10 +1,10 @@
 package com.projetospring.chatonline.service;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import com.projetospring.chatonline.dtos.RegistrationUserDto;
 import com.projetospring.chatonline.infrastructure.PasswordEncoder;
@@ -21,9 +21,15 @@ public class RegisterCase {
 	@Autowired
 	private PasswordEncoder encoder;
 
-	public User execute(RegistrationUserDto userRegister) {
+	public void execute(RegistrationUserDto userRegister) {
 		User user = registerToUser(userRegister);
-		return repository.save(user);
+		repository.save(user);
+	}
+	
+	public void checkPasswordConfirmation(RegistrationUserDto userRegister){
+		if(!(userRegister.isTheSamePassword())) {
+			throw new MethodArgumentNotValidException(null, null);
+		}
 	}
 
 	private User registerToUser(RegistrationUserDto userRegister) {
