@@ -22,9 +22,16 @@ public class RegisterCase {
 	private PasswordEncoder encoder;
 
 	public User execute(RegistrationUserDto userRegister) {
+		checkPasswordConfirmation(userRegister);
 		User user = registerToUser(userRegister);
 		return repository.save(user);
 	}
+
+	public void checkPasswordConfirmation(RegistrationUserDto userRegister){
+		if(!(userRegister.isTheSamePassword())) {
+			throw new MethodArgumentNotValidException(null, null);
+		}
+  	}
 
 	private User registerToUser(RegistrationUserDto userRegister) {
 		String encodedPassword = encoder.encryptPassword(userRegister.password());
