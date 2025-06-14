@@ -5,16 +5,17 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import com.projetospring.chatonline.service.validator.UniqueEmailValidator;
+
+import com.projetospring.chatonline.service.validator.EmailValidator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 @Documented
-@Constraint(validatedBy = UniqueEmailValidator.class)
+@Constraint(validatedBy = EmailValidator.class)
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UniqueEmail {
+public @interface ValidEmail {
 	String message() default "Email already in use";
 
 	Class<?>[] groups() default {};

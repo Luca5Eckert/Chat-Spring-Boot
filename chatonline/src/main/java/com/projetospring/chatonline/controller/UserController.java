@@ -23,13 +23,13 @@ public class UserController {
 	@Autowired
 	private RegisterCase registerCase;
 
-	@PostMapping("/api/register")
+	@PostMapping("/api/user/register")
 	public ResponseEntity<?> registerUser(@RequestBody @Valid RegistrationUserDto userRegister) {
 		registerCase.execute(userRegister);
 		return ResponseEntity.accepted().body("Registration completed successfully");
 	}
 
-	@PostMapping("/api/login")
+	@PostMapping("/api/user/login")
 	public ResponseEntity<?> loginInUser(@RequestBody @Valid LoginUserDto userLogin) {
 		loginCase.execute(userLogin);
 		return ResponseEntity.accepted().body("Login completed successfully");

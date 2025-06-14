@@ -11,9 +11,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "message_tb")
+@NoArgsConstructor
 public class Message {
 
 	@Id
@@ -33,6 +35,14 @@ public class Message {
 
 	@Column(nullable = false)
 	private String content;
+	
+	
+	public Message() {
+		this.id = null;
+		this.sendBy = null;
+		this.sendFor = null;
+		this.sendAt = null;
+	}
 
 	private Message(UUID id, User sendBy, Room sendFor, LocalDateTime sendAt, String content) {
 		this.id = id;

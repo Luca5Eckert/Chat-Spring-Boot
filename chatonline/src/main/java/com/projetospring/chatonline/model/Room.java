@@ -11,9 +11,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "room_tb")
+@NoArgsConstructor
 public class Room {
 	private final static int MAX_PEOPLE = 10;
 
@@ -33,6 +35,12 @@ public class Room {
 
 	@Column(nullable = false)
 	private String description;
+
+	public Room() {
+		this.id = null;
+		this.type = null;
+		this.createAt = null;
+	}
 
 	private Room(UUID id, TypeRoom type, int numberOfPeople, LocalDateTime createAt, String description) {
 		this.id = id;

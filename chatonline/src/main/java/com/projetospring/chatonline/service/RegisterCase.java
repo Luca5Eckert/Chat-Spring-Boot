@@ -1,12 +1,14 @@
 package com.projetospring.chatonline.service;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projetospring.chatonline.dtos.RegistrationUserDto;
+import com.projetospring.chatonline.exceptions.EmailInvalidException;
+import com.projetospring.chatonline.exceptions.PasswordConfirmationException;
+import com.projetospring.chatonline.exceptions.UsernameInvalidException;
 import com.projetospring.chatonline.infrastructure.PasswordEncoder;
 import com.projetospring.chatonline.model.TypeUser;
 import com.projetospring.chatonline.model.User;
@@ -22,16 +24,37 @@ public class RegisterCase {
 	private PasswordEncoder encoder;
 
 	public User execute(RegistrationUserDto userRegister) {
-		checkPasswordConfirmation(userRegister);
+		validateRegistrationData(userRegister);
 		User user = registerToUser(userRegister);
 		return repository.save(user);
 	}
 
-	public void checkPasswordConfirmation(RegistrationUserDto userRegister){
-		if(!(userRegister.isTheSamePassword())) {
-			throw new MethodArgumentNotValidException(null, null);
+	private void validateRegistrationData(RegistrationUserDto userRegister) {
+		checkPasswordConfirmation(userRegister);
+
+		checkIfEmailIsUnique(userRegister);
+
+		checkIfUsernameIsUnique(userRegister);
+
+	}
+
+	private void checkPasswordConfirmation(RegistrationUserDto userRegister) {
+		if (!(userRegister.isTheSamePassword())) {
+			throw new PasswordConfirmationException("Password and confirmation do not match");
 		}
-  	}
+	}
+
+	private void checkIfEmailIsUnique(RegistrationUserDto userRegister) {
+		if (repository.findByEmail(userRegister.email()).isPresent()) {
+			throw new EmailInvalidException("Email is already in use");
+		}
+	}
+
+	private void checkIfUsernameIsUnique(RegistrationUserDto userRegister) {
+		if (repository.findByUsername(userRegister.username()).isPresent()) {
+			throw new UsernameInvalidException("Username is already in use");
+		}
+	}
 
 	private User registerToUser(RegistrationUserDto userRegister) {
 		String encodedPassword = encoder.encryptPassword(userRegister.password());

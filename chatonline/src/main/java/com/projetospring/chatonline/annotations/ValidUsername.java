@@ -6,17 +6,17 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.projetospring.chatonline.service.validator.UniqueUsernameValidator;
+import com.projetospring.chatonline.service.validator.UsernameValidator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 @Documented
-@Constraint(validatedBy = UniqueUsernameValidator.class)
+@Constraint(validatedBy = UsernameValidator.class)
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UniqueUsername {
-	String message() default "Username already in use";
+public @interface ValidUsername {
+	String message() default "Username is not valid";
 
 	Class<?>[] groups() default {};
 

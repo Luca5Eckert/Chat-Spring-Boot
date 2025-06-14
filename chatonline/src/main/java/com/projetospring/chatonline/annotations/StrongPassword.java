@@ -6,13 +6,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.projetospring.chatonline.service.validator.StrongPassowordValidator;
+import com.projetospring.chatonline.service.validator.StrongPasswordValidator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 @Documented
-@Constraint(validatedBy = StrongPassowordValidator.class)
+@Constraint(validatedBy = StrongPasswordValidator.class)
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface StrongPassword {
