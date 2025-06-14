@@ -1,7 +1,9 @@
 package com.projetospring.chatonline.infrastructure;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PasswordEncoder {
 
 	public String encryptPassword(String password) {
