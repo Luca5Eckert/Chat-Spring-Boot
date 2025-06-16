@@ -26,6 +26,7 @@ public class RegisterCase {
 	public User execute(RegistrationUserDto userRegister) {
 		validateRegistrationData(userRegister);
 		User user = registerToUser(userRegister);
+
 		return repository.save(user);
 	}
 

@@ -34,6 +34,6 @@ public class UserController {
 		loginCase.execute(userLogin);
 		return ResponseEntity.accepted().body("Login completed successfully");
 	}
-
+	
 
 }

@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,22 +19,23 @@ import com.projetospring.chatonline.repository.UserRepository;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-	
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf(AbstractHttpConfigurer::disable)
-				.authorizeHttpRequests(auth -> auth
-				.requestMatchers("/api/user/login", "/api/user/register").permitAll()
-				.anyRequest().authenticated()
-				);
-				
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/user/login", "/api/user/register").permitAll()
+						.anyRequest().authenticated())
+
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
+				.logout(logout -> logout.logoutUrl("/logout").invalidateHttpSession(true).deleteCookies("JSESSIONID"));
+
 		return http.build();
 	}
 
 	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-    	return authenticationConfiguration.getAuthenticationManager();
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+			throws Exception {
+		return authenticationConfiguration.getAuthenticationManager();
 	}
 
 	@Bean
@@ -43,11 +45,7 @@ public class SecurityConfig {
 
 	@Bean
 	public UserDetailsService userDetailsService(UserRepository userRepository) {
-    	return username -> userRepository.findByUsername(username)
-        	    .map(user -> org.springframework.security.core.userdetails.User.withUsername(user.getUsername())
-            	        .password(user.getPassword())
-                	    .roles("USER") 
-                    	.build())
-            	.orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+		return username -> userRepository.findByUsername(username)
+				.orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 	}
 }

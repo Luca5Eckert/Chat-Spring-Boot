@@ -7,20 +7,22 @@ import org.springframework.stereotype.Service;
 
 import com.projetospring.chatonline.dtos.CreateRoomDto;
 import com.projetospring.chatonline.model.Room;
+import com.projetospring.chatonline.model.User;
 import com.projetospring.chatonline.repository.RoomRepository;
 
 @Service
 public class CreateRoomCase {
-    
-    @Autowired
-    private RoomRepository repository;
 
-    public void execute(CreateRoomDto createRoomDto){
-        var roomModel = dtoToModel(createRoomDto);
-        repository.save(roomModel);
-    }
+	@Autowired
+	private RoomRepository repository;
 
-    public Room dtoToModel(CreateRoomDto createRoomDto){
-        return Room.createRoom(null, createRoomDto.name(), createRoomDto.type(), 0, LocalDateTime.now(), createRoomDto.description());
-    }
+	public void execute(CreateRoomDto createRoomDto, User userSend) {
+		var roomModel = dtoToModel(createRoomDto, userSend);
+		repository.save(roomModel);
+	}
+
+	public Room dtoToModel(CreateRoomDto createRoomDto, User userSend) {
+		return Room.createRoom(null, createRoomDto.name(), createRoomDto.type(), 0, LocalDateTime.now(),
+				createRoomDto.description(), userSend);
+	}
 }

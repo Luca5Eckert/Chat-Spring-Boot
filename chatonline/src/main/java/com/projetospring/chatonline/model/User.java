@@ -1,7 +1,12 @@
 package com.projetospring.chatonline.model;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,11 +21,13 @@ import jakarta.validation.constraints.NotNull;
 import lombok.NoArgsConstructor;
 import lombok.Value;
 
+@SuppressWarnings("serial")
+
 @Entity
 @Table(name = "user_tb")
 @Value
 @NoArgsConstructor
-public class User {
+public class User implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,7 +36,7 @@ public class User {
 	@Column(nullable = false)
 	private String username;
 
-	@Column(nullable = false, unique= true)
+	@Column(nullable = false, unique = true)
 	private String email;
 
 	@Column(nullable = false)
@@ -99,6 +106,11 @@ public class User {
 
 	TypeUser getType() {
 		return type;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of(TypeUser.values());
 	}
 
 }

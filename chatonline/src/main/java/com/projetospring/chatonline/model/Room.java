@@ -23,7 +23,7 @@ public class Room {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private final UUID id;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String nameRoom;
 
 	@Enumerated(EnumType.STRING)
@@ -39,24 +39,30 @@ public class Room {
 	@Column(nullable = false)
 	private String description;
 
+	@Column(nullable = false)
+	private final User createBy;
+
 	public Room() {
 		this.id = null;
 		this.type = null;
 		this.createAt = null;
+		this.createBy = null;
 	}
 
-	private Room(UUID id, String nameRoom, TypeRoom type, int numberOfPeople, LocalDateTime createAt, String description) {
+	private Room(UUID id, String nameRoom, TypeRoom type, int numberOfPeople, LocalDateTime createAt,
+			String description, User createBy) {
 		this.id = id;
 		this.nameRoom = nameRoom;
 		this.type = type;
 		this.numberOfPeople = numberOfPeople;
 		this.createAt = createAt;
 		this.description = description;
+		this.createBy = createBy;
 	}
 
 	public static Room createRoom(UUID id, String nameRoom, TypeRoom type, int numberOfPeople, LocalDateTime createAt,
-			String description) {
-		return new Room(id, nameRoom, type, numberOfPeople, createAt, description);
+			String description, User createBy) {
+		return new Room(id, nameRoom, type, numberOfPeople, createAt, description, createBy);
 	}
 
 	public void setNumberOfPeople(int numberOfPeople) {
@@ -76,10 +82,6 @@ public class Room {
 
 	boolean isItFull() {
 		return numberOfPeople == MAX_PEOPLE;
-	}
-
-	boolean canAdd(int numberOfPeopleAdd) {
-		return (numberOfPeopleAdd + this.numberOfPeople) <= MAX_PEOPLE;
 	}
 
 	static int getMaxPeople() {
