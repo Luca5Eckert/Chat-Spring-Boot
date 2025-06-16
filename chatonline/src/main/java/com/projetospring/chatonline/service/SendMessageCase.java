@@ -28,16 +28,16 @@ public class SendMessageCase {
 	private UserStatusRoomRepository repositoryUserStatus;
 
 	public void execute(@Valid SendMenssageDto sendMenssageDto, User user) {
+		checkPermissionUser(sendMenssageDto.sendFor(), user);
 		var message = dtoToMessage(sendMenssageDto, user);
 		repository.save(message);
 	}
 
 	public void checkPermissionUser(Room room, User user) {
-		var statusRoom = getStatusUser(room, user);
-		if (!statusRoom.isPresent()) {
-			throw new PermissionUserInvalidException("Error in found the association between user and room");
-		}
-		var typeAcess = statusRoom.get().getRoomAccess();
+		UserStatusRoom statusRoom = getStatusUser(room, user).orElseThrow(
+				() -> new PermissionUserInvalidException("Error in found the association between user and room"));
+
+		var typeAcess = statusRoom.getRoomAccess();
 
 		switch (typeAcess) {
 		case BLOCKED ->
