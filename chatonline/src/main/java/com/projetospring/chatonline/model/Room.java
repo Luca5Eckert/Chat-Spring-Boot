@@ -11,17 +11,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "room_tb")
-@NoArgsConstructor
 public class Room {
 	private final static int MAX_PEOPLE = 10;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private final UUID id;
+
+	@Column(nullable=false)
+	private String nameRoom;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
@@ -42,17 +43,18 @@ public class Room {
 		this.createAt = null;
 	}
 
-	private Room(UUID id, TypeRoom type, int numberOfPeople, LocalDateTime createAt, String description) {
+	private Room(UUID id, String nameRoom, TypeRoom type, int numberOfPeople, LocalDateTime createAt, String description) {
 		this.id = id;
+		this.nameRoom = nameRoom;
 		this.type = type;
 		this.numberOfPeople = numberOfPeople;
 		this.createAt = createAt;
 		this.description = description;
 	}
 
-	public static Room createRoom(UUID id, TypeRoom type, int numberOfPeople, LocalDateTime createAt,
+	public static Room createRoom(UUID id, String nameRoom, TypeRoom type, int numberOfPeople, LocalDateTime createAt,
 			String description) {
-		return new Room(id, type, numberOfPeople, createAt, description);
+		return new Room(id, nameRoom, type, numberOfPeople, createAt, description);
 	}
 
 	public void setNumberOfPeople(int numberOfPeople) {

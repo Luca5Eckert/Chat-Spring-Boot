@@ -1,0 +1,26 @@
+package com.projetospring.chatonline.service;
+
+import java.time.LocalDateTime;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.projetospring.chatonline.dtos.CreateRoomDto;
+import com.projetospring.chatonline.model.Room;
+import com.projetospring.chatonline.repository.RoomRepository;
+
+@Service
+public class CreateRoomCase {
+    
+    @Autowired
+    private RoomRepository repository;
+
+    public void execute(CreateRoomDto createRoomDto){
+        var roomModel = dtoToModel(createRoomDto);
+        repository.save(roomModel);
+    }
+
+    public Room dtoToModel(CreateRoomDto createRoomDto){
+        return Room.createRoom(null, createRoomDto.name(), createRoomDto.type(), 0, LocalDateTime.now(), createRoomDto.description());
+    }
+}

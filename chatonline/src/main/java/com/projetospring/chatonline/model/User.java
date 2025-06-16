@@ -3,8 +3,6 @@ package com.projetospring.chatonline.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import com.projetospring.chatonline.annotations.StrongPassword;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,13 +13,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.NoArgsConstructor;
 import lombok.Value;
 
 @Entity
 @Table(name = "user_tb")
 @Value
-@NoArgsConstructor
 public class User {
 
 	@Id
@@ -31,7 +27,7 @@ public class User {
 	@Column(nullable = false)
 	private String username;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique= true)
 	private String email;
 
 	@Column(nullable = false)
@@ -46,6 +42,10 @@ public class User {
 
 	private User() {
 		this.id = null;
+		this.username = null;
+		this.email = null;
+		this.password = null;
+		this.type = null;
 		this.createAt = null;
 	}
 

@@ -10,4 +10,5 @@ import com.projetospring.chatonline.model.Room;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, UUID>  {
 
+    public void deleteById(UUID id); 
 }
