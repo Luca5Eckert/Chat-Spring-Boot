@@ -83,7 +83,7 @@ public class User {
 		return id;
 	}
 
-	String getUsername() {
+	public String getUsername() {
 		return username;
 	}
 
@@ -91,7 +91,7 @@ public class User {
 		return email;
 	}
 
-	String getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
