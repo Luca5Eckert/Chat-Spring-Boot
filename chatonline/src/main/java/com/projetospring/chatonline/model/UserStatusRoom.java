@@ -1,31 +1,36 @@
 package com.projetospring.chatonline.model;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import lombok.NoArgsConstructor;
+import lombok.Value;
 
+@Entity
+@Table(name = "user_status_room_tb")
+@Value
+@NoArgsConstructor
 public class UserStatusRoom {
 
-	@Column(nullable = false)
-	private final User user;
-
-	@Column(nullable = false)
-	private final Room room;
+	@EmbeddedId
+	private final UserStatusRoomId id;
 
 	@Column(nullable = false)
 	private TypeRoomAccess roomAccess;
 
 	private UserStatusRoom(@NotNull UserStatusRoomBuilder userStatusRoomBuilder) {
-		this.user = userStatusRoomBuilder.user;
-		this.room = userStatusRoomBuilder.room;
+		this.id = userStatusRoomBuilder.id;
 		this.roomAccess = userStatusRoomBuilder.roomAccess;
 	}
 
 	public User getUser() {
-		return user;
+		return id.getUser();
 	}
 
 	public Room getRoom() {
-		return room;
+		return id.getRoom();
 	}
 
 	public TypeRoomAccess getRoomAccess() {
@@ -38,14 +43,12 @@ public class UserStatusRoom {
 
 	public class UserStatusRoomBuilder {
 
-		private final User user;
-		private final Room room;
+		private final UserStatusRoomId id;
 
 		private TypeRoomAccess roomAccess;
 
 		public UserStatusRoomBuilder(User user, Room room) {
-			this.user = user;
-			this.room = room;
+			this.id = new UserStatusRoomId(user, room);
 		}
 
 		public void setRoomAcesss(TypeRoomAccess roomAccess) {

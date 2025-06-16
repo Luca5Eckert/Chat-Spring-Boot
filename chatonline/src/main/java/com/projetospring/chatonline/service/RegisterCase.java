@@ -9,7 +9,7 @@ import com.projetospring.chatonline.dtos.RegistrationUserDto;
 import com.projetospring.chatonline.exceptions.EmailInvalidException;
 import com.projetospring.chatonline.exceptions.PasswordConfirmationException;
 import com.projetospring.chatonline.exceptions.UsernameInvalidException;
-import com.projetospring.chatonline.infrastructure.PasswordEncoder;
+import com.projetospring.chatonline.infrastructure.PasswordEncoderCrypto;
 import com.projetospring.chatonline.model.TypeUser;
 import com.projetospring.chatonline.model.User;
 import com.projetospring.chatonline.repository.UserRepository;
@@ -21,7 +21,7 @@ public class RegisterCase {
 	private UserRepository repository;
 
 	@Autowired
-	private PasswordEncoder encoder;
+	private PasswordEncoderCrypto encoder;
 
 	public User execute(RegistrationUserDto userRegister) {
 		validateRegistrationData(userRegister);
@@ -58,7 +58,7 @@ public class RegisterCase {
 
 	private User registerToUser(RegistrationUserDto userRegister) {
 		String encodedPassword = encoder.encryptPassword(userRegister.password());
-		return User.createUser(null, userRegister.username(), userRegister.email(), encodedPassword, TypeUser.LOGIN,
+		return User.createUser(null, userRegister.username(), userRegister.email(), encodedPassword, TypeUser.USER,
 				LocalDateTime.now());
 	}
 
