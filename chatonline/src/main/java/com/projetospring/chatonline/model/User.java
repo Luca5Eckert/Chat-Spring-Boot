@@ -27,7 +27,7 @@ import lombok.Value;
 @Table(name = "user_tb")
 @Value
 @NoArgsConstructor
-public class User implements UserDetails {
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -104,13 +104,8 @@ public class User implements UserDetails {
 		return password;
 	}
 
-	TypeUser getType() {
+	public TypeUser getType() {
 		return type;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of(TypeUser.values());
 	}
 
 }
