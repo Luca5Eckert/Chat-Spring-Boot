@@ -1,5 +1,7 @@
 package com.projetospring.chatonline.controller;
 
+import com.projetospring.chatonline.dtos.JwtTolkenDto;
+import com.projetospring.chatonline.dtos.ResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,8 +33,8 @@ public class UserController {
 
 	@PostMapping("/api/user/login")
 	public ResponseEntity<?> loginInUser(@RequestBody @Valid LoginUserDto userLogin) {
-		loginCase.execute(userLogin);
-		return ResponseEntity.accepted().body("Login completed successfully");
+		JwtTolkenDto jwtToken = loginCase.execute(userLogin);
+		return ResponseEntity.accepted().body( new ResponseDto(200, "Login successful", jwtToken));
 	}
 	
 

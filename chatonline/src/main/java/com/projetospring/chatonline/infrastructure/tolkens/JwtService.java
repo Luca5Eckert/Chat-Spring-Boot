@@ -1,5 +1,6 @@
 package com.projetospring.chatonline.infrastructure.tolkens;
 
+import com.projetospring.chatonline.dtos.JwtTolkenDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -37,10 +38,11 @@ public class JwtService {
 		return extractClaim(token, Claims::getExpiration).before(new Date());
 	}
 
-	public String generateToken(UserDetails userDetails) {
-		return Jwts.builder().setSubject(userDetails.getUsername()).claim("authorities", userDetails.getAuthorities())
+	public JwtTolkenDto generateToken(UserDetails userDetails) {
+		String jwtTolken = Jwts.builder().setSubject(userDetails.getUsername()).claim("authorities", userDetails.getAuthorities())
 				.setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10
 																													// horas
 				.signWith(SignatureAlgorithm.HS256, SECRET_KEY.getBytes()).compact();
+		return new JwtTolkenDto(jwtTolken);
 	}
 }

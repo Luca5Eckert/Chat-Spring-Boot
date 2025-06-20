@@ -1,5 +1,9 @@
 package com.projetospring.chatonline.service;
 
+import com.projetospring.chatonline.dtos.JwtTolkenDto;
+import com.projetospring.chatonline.infrastructure.security.UserDetailsImpl;
+import com.projetospring.chatonline.infrastructure.tolkens.JwtService;
+import com.projetospring.chatonline.model.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +22,18 @@ public class LoginCase {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	public void execute(@Valid LoginUserDto userLogin) {
-		UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(userLogin.username(),
-				userLogin.password());
+	@Autowired
+	private JwtService jwtService;
 
-		try {
-			Authentication authenticated = authenticationManager.authenticate(userToken);
+	public JwtTolkenDto execute(@Valid LoginUserDto userLogin) throws AuthenticationValidationException {
+		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.username(), userLogin.password()));
 
-			SecurityContextHolder.getContext().setAuthentication(authenticated);
-		} catch (Exception ae) {
-			throw new AuthenticationValidationException("Error in the authentication");
+		if(authentication.isAuthenticated()){
+			throw new AuthenticationValidationException("Invalid credentials");
 		}
+		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+		return jwtService.generateToken(userDetails);
 	}
 
 }
