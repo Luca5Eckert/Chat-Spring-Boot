@@ -5,13 +5,15 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Value;
 
 @Entity
 @Table(name = "user_status_room_tb")
-@Value
-@NoArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 public class UserStatusRoom {
 
 	@EmbeddedId

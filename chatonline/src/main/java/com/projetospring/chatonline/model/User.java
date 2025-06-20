@@ -1,37 +1,24 @@
 package com.projetospring.chatonline.model;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Value;
-
-@SuppressWarnings("serial")
 
 @Entity
 @Table(name = "user_tb")
-@Value
-@NoArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private final UUID id;
+	private UUID id;
 
 	@Column(nullable = false)
 	private String username;
@@ -43,33 +30,22 @@ public class User {
 	private String password;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "type")
+	@Column(name = "type", nullable = false)
 	private TypeUser type;
 
-	@Column(name = "createAt")
-	private final LocalDateTime createAt;
+	@Column(name = "createAt", nullable = false, updatable = false)
+	@org.hibernate.annotations.CreationTimestamp
+	private LocalDateTime createAt;
 
-	private User() {
-		this.id = null;
-		this.username = null;
-		this.email = null;
-		this.password = null;
-		this.type = null;
-		this.createAt = null;
-	}
-
-	private User(UUID id, String username, String email, String password, TypeUser type, LocalDateTime createAt) {
-		this.id = id;
+	private User(String username, String email, String password, TypeUser type) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.type = type;
-		this.createAt = createAt;
 	}
 
-	public static User createUser(UUID id, String name, String email, String password, TypeUser type,
-			LocalDateTime createAt) {
-		return new User(id, name, email, password, type, createAt);
+	public static User createUser(String username, String email, String password, TypeUser type) {
+		return new User(username, email, password, type);
 	}
 
 	public void setUsername(String username) {
@@ -88,24 +64,15 @@ public class User {
 		this.type = type;
 	}
 
-	UUID getId() {
-		return id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	String getEmail() {
-		return email;
+	public TypeUser getType() {
+		return this.type;
 	}
 
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
-	public TypeUser getType() {
-		return type;
+	public String getUsername() {
+		return this.username;
 	}
-
 }

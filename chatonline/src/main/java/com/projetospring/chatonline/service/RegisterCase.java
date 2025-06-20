@@ -59,8 +59,7 @@ public class RegisterCase {
 
 	private User registerToUser(RegistrationUserDto userRegister) {
 		String encodedPassword = encoder.encryptPassword(userRegister.password());
-		return User.createUser(null, userRegister.username(), userRegister.email(), encodedPassword, TypeUser.USER,
-				LocalDateTime.now());
+		return User.createUser( userRegister.username(), userRegister.email(), encodedPassword, TypeUser.USER);
 	}
 
 }

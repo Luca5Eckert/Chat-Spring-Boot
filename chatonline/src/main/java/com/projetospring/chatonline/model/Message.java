@@ -11,11 +11,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "message_tb")
-@NoArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 public class Message {
 
 	@Id
@@ -35,14 +38,6 @@ public class Message {
 
 	@Column(nullable = false)
 	private String content;
-	
-	
-	public Message() {
-		this.id = null;
-		this.sendBy = null;
-		this.sendFor = null;
-		this.sendAt = null;
-	}
 
 	private Message(UUID id, User sendBy, Room sendFor, LocalDateTime sendAt, String content) {
 		this.id = id;

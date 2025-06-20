@@ -3,19 +3,15 @@ package com.projetospring.chatonline.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "room_tb")
-@NoArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 public class Room {
 	private final static int MAX_PEOPLE = 10;
 
@@ -39,15 +35,9 @@ public class Room {
 	@Column(nullable = false)
 	private String description;
 
-	@Column(nullable = false)
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "create_by", nullable = false)
 	private final User createBy;
-
-	public Room() {
-		this.id = null;
-		this.type = null;
-		this.createAt = null;
-		this.createBy = null;
-	}
 
 	private Room(UUID id, String nameRoom, TypeRoom type, int numberOfPeople, LocalDateTime createAt,
 			String description, User createBy) {
