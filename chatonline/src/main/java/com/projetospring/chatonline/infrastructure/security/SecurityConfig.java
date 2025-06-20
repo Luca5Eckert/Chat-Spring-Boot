@@ -1,5 +1,6 @@
 package com.projetospring.chatonline.infrastructure.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,21 +13,30 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.projetospring.chatonline.infrastructure.tolkens.JwtAuthenticationFilter;
+import com.projetospring.chatonline.infrastructure.tolkens.JwtService;
 import com.projetospring.chatonline.repository.UserRepository;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+	@Autowired
+	private JwtService jwtService;
+
+	@Autowired
+	private UserDetailsServiceImpl userDetailsServiceImpl;
+
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.csrf(AbstractHttpConfigurer::disable)
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/user/login", "/api/user/register").permitAll()
-						.anyRequest().authenticated()
-						);
-
-		return http.build();
+		return http.csrf(csrf -> csrf.disable())
+				.authorizeHttpRequests(
+						auth -> auth.requestMatchers("/login", "/register").permitAll().anyRequest().authenticated())
+				.addFilterBefore(new JwtAuthenticationFilter(jwtService, userDetailsServiceImpl),
+						UsernamePasswordAuthenticationFilter.class)
+				.build();
 	}
 
 	@Bean
@@ -40,8 +50,4 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 
-	@Bean
-	public UserDetailsService userDetailsService(UserRepository userRepository) {
-		return username -> 
-	}
 }
