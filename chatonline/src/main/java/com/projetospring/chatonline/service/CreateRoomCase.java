@@ -16,9 +16,9 @@ public class CreateRoomCase {
 	@Autowired
 	private RoomRepository repository;
 
-	public void execute(CreateRoomDto createRoomDto, User userSend) {
+	public Room execute(CreateRoomDto createRoomDto, User userSend) {
 		var roomModel = dtoToModel(createRoomDto, userSend);
-		repository.save(roomModel);
+		return repository.save(roomModel);
 	}
 
 	public Room dtoToModel(CreateRoomDto createRoomDto, User userSend) {

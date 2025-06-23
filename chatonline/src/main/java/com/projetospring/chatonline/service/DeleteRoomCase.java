@@ -8,16 +8,17 @@ import com.projetospring.chatonline.repository.RoomRepository;
 
 @Service
 public class DeleteRoomCase {
-    
-    @Autowired
-    private RoomRepository repository;
 
-    public void execute(RoomDto roomDto){
-        deleteById(roomDto);
-    }
+	@Autowired
+	private RoomRepository repository;
 
-    private void deleteById(RoomDto roomDto){
-        repository.deleteById(roomDto.id());
-    }
+	public String execute(RoomDto roomDto) {
+		deleteById(roomDto);
+		return roomDto.name();
+	}
+
+	private void deleteById(RoomDto roomDto) {
+		repository.deleteById(roomDto.id());
+	}
 
 }

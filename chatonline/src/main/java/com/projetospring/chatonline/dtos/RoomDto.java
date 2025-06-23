@@ -7,6 +7,6 @@ import com.projetospring.chatonline.model.TypeRoom;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record RoomDto(UUID id, @NotBlank String nameRoom, @NotBlank TypeRoom type, @NotBlank String description, @NotBlank LocalDateTime createAt, @NotBlank int numberOfPeople){
+public record RoomDto(UUID id, @NotBlank String name, @NotBlank TypeRoom type, @NotBlank String description, @NotBlank LocalDateTime createAt, @NotBlank int numberOfPeople){
 
 }

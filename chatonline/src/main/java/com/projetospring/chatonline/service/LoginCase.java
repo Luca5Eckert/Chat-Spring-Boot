@@ -26,11 +26,9 @@ public class LoginCase {
 	private JwtService jwtService;
 
 	public JwtTolkenDto execute(@Valid LoginUserDto userLogin) throws AuthenticationValidationException {
-		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.username(), userLogin.password()));
+		Authentication authentication = authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(userLogin.username(), userLogin.password()));
 
-		if(authentication.isAuthenticated()){
-			throw new AuthenticationValidationException("Invalid credentials");
-		}
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
 		return jwtService.generateToken(userDetails);

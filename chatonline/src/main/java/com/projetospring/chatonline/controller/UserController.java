@@ -2,6 +2,8 @@ package com.projetospring.chatonline.controller;
 
 import com.projetospring.chatonline.dtos.JwtTolkenDto;
 import com.projetospring.chatonline.dtos.ResponseDto;
+import com.projetospring.chatonline.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,16 +28,17 @@ public class UserController {
 	private RegisterCase registerCase;
 
 	@PostMapping("/api/user/register")
-	public ResponseEntity<?> registerUser(@RequestBody @Valid RegistrationUserDto userRegister) {
-		registerCase.execute(userRegister);
-		return ResponseEntity.accepted().body("Registration completed successfully");
+	public ResponseEntity<ResponseDto> registerUser(@RequestBody @Valid RegistrationUserDto userRegister) {
+		User userCreate = registerCase.execute(userRegister);
+		
+		return ResponseEntity.accepted().body(new ResponseDto(200, "Registration completed successfully", userCreate));
 	}
 
 	@PostMapping("/api/user/login")
-	public ResponseEntity<?> loginInUser(@RequestBody @Valid LoginUserDto userLogin) {
+	public ResponseEntity<ResponseDto> loginInUser(@RequestBody @Valid LoginUserDto userLogin) {
 		JwtTolkenDto jwtToken = loginCase.execute(userLogin);
-		return ResponseEntity.accepted().body( new ResponseDto(200, "Login successful", jwtToken));
+		
+		return ResponseEntity.accepted().body(new ResponseDto(200, "Login successful", jwtToken));
 	}
-	
 
 }
