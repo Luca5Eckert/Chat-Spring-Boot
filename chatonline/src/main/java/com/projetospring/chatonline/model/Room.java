@@ -20,7 +20,7 @@ public class Room {
 	private final UUID id;
 
 	@Column(nullable = false)
-	private String nameRoom;
+	private String name;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
@@ -39,10 +39,10 @@ public class Room {
 	@JoinColumn(name = "create_by", nullable = false)
 	private final User createBy;
 
-	private Room(UUID id, String nameRoom, TypeRoom type, int numberOfPeople, LocalDateTime createAt,
-			String description, User createBy) {
+	private Room(UUID id, String name, TypeRoom type, int numberOfPeople, LocalDateTime createAt, String description,
+			User createBy) {
 		this.id = id;
-		this.nameRoom = nameRoom;
+		this.name = name;
 		this.type = type;
 		this.numberOfPeople = numberOfPeople;
 		this.createAt = createAt;
@@ -66,31 +66,35 @@ public class Room {
 		this.description = description;
 	}
 
-	String getDescription() {
+	public String getDescription() {
 		return new String(description);
 	}
 
-	boolean isItFull() {
+	public boolean isItFull() {
 		return numberOfPeople == MAX_PEOPLE;
 	}
 
-	static int getMaxPeople() {
-		return MAX_PEOPLE;
-	}
-
-	UUID getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	TypeRoom getType() {
+	public String getName() {
+		return name;
+	}
+
+	public User getCreateBy() {
+		return createBy;
+	}
+
+	public TypeRoom getType() {
 		return type;
 	}
 
-	int getNumberOfPeople() {
+	public int getNumberOfPeople() {
 		return numberOfPeople;
 	}
 
-	LocalDateTime getCreateAt() {
+	public LocalDateTime getCreateAt() {
 		return createAt;
 	}
 

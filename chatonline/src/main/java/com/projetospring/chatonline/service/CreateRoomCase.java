@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projetospring.chatonline.dtos.CreateRoomDto;
+import com.projetospring.chatonline.dtos.RoomDto;
 import com.projetospring.chatonline.model.Room;
 import com.projetospring.chatonline.model.User;
 import com.projetospring.chatonline.repository.RoomRepository;
@@ -16,9 +17,10 @@ public class CreateRoomCase {
 	@Autowired
 	private RoomRepository repository;
 
-	public Room execute(CreateRoomDto createRoomDto, User userSend) {
+	public RoomDto execute(CreateRoomDto createRoomDto, User userSend) {
 		var roomModel = dtoToModel(createRoomDto, userSend);
-		return repository.save(roomModel);
+		repository.save(roomModel);
+		return new RoomDto(roomModel);
 	}
 
 	public Room dtoToModel(CreateRoomDto createRoomDto, User userSend) {

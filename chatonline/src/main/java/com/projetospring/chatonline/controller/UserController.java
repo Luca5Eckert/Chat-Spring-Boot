@@ -2,6 +2,7 @@ package com.projetospring.chatonline.controller;
 
 import com.projetospring.chatonline.dtos.JwtTolkenDto;
 import com.projetospring.chatonline.dtos.ResponseDto;
+import com.projetospring.chatonline.dtos.UserDto;
 import com.projetospring.chatonline.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class UserController {
 
 	@PostMapping("/api/user/register")
 	public ResponseEntity<ResponseDto> registerUser(@RequestBody @Valid RegistrationUserDto userRegister) {
-		User userCreate = registerCase.execute(userRegister);
+		UserDto userCreate = registerCase.execute(userRegister);
 		
 		return ResponseEntity.accepted().body(new ResponseDto(200, "Registration completed successfully", userCreate));
 	}

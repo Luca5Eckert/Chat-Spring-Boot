@@ -32,7 +32,7 @@ public class RoomController {
 	public ResponseEntity<ResponseDto> createRoom(@Valid @RequestBody CreateRoomDto createRoomDto,
 			Authentication authentication) {
 		UserDetailsImpl userSend = (UserDetailsImpl) authentication.getPrincipal();
-		Room roomCreate = createRoomCase.execute(createRoomDto, userSend.getUser());
+		RoomDto roomCreate = createRoomCase.execute(createRoomDto, userSend.getUser());
 		
 		return ResponseEntity.ok(new ResponseDto(201, "Add room with successfully", roomCreate));
 	}

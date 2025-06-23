@@ -56,6 +56,18 @@ public class User {
 		this.email = email;
 	}
 
+	public UUID getId() {
+		return id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public LocalDateTime getCreateAt() {
+		return createAt;
+	}
+
 	public void setPassword(@NotBlank String password) {
 		this.password = password;
 	}

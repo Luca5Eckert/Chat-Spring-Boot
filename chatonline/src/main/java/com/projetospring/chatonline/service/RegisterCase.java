@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projetospring.chatonline.dtos.RegistrationUserDto;
+import com.projetospring.chatonline.dtos.UserDto;
 import com.projetospring.chatonline.exceptions.EmailInvalidException;
 import com.projetospring.chatonline.exceptions.PasswordConfirmationException;
 import com.projetospring.chatonline.exceptions.UsernameInvalidException;
@@ -23,11 +24,12 @@ public class RegisterCase {
 	@Autowired
 	private PasswordEncoderCrypto encoder;
 
-	public User execute(RegistrationUserDto userRegister) {
+	public UserDto execute(RegistrationUserDto userRegister) {
 		validateRegistrationData(userRegister);
 		User user = registerToUser(userRegister);
 
-		return repository.save(user);
+		repository.save(user);
+		return new UserDto(user);
 	}
 
 	private void validateRegistrationData(RegistrationUserDto userRegister) {
@@ -59,7 +61,7 @@ public class RegisterCase {
 
 	private User registerToUser(RegistrationUserDto userRegister) {
 		String encodedPassword = encoder.encryptPassword(userRegister.password());
-		return User.createUser( userRegister.username(), userRegister.email(), encodedPassword, TypeUser.USER);
+		return User.createUser(userRegister.username(), userRegister.email(), encodedPassword, TypeUser.USER);
 	}
 
 }
