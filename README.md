@@ -1,2 +1,2 @@
 # Chat-Spring-Boot
-Testando Spring Boot em um projeto de chat
+Learning to use Spring Boot in a Chat application
