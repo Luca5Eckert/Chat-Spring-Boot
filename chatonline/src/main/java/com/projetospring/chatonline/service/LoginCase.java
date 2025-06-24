@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.projetospring.chatonline.dtos.LoginUserDto;
 import com.projetospring.chatonline.exceptions.AuthenticationValidationException;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Service
@@ -25,6 +26,7 @@ public class LoginCase {
 	@Autowired
 	private JwtService jwtService;
 
+	@Transactional
 	public JwtTolkenDto execute(@Valid LoginUserDto userLogin) throws AuthenticationValidationException {
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(userLogin.username(), userLogin.password()));

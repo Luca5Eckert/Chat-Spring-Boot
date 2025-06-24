@@ -27,6 +27,13 @@ public class UserStatusRoom {
 		this.roomAccess = userStatusRoomBuilder.roomAccess;
 	}
 
+	public boolean canSendMessage() {
+		return switch (roomAccess) {
+		case BLOCKED -> false;
+		default -> true;
+		};
+	}
+
 	public User getUser() {
 		return id.getUser();
 	}

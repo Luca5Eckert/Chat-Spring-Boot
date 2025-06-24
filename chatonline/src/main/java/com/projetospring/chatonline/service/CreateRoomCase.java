@@ -11,12 +11,15 @@ import com.projetospring.chatonline.model.Room;
 import com.projetospring.chatonline.model.User;
 import com.projetospring.chatonline.repository.RoomRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class CreateRoomCase {
 
 	@Autowired
 	private RoomRepository repository;
 
+	@Transactional
 	public RoomDto execute(CreateRoomDto createRoomDto, User userSend) {
 		var roomModel = dtoToModel(createRoomDto, userSend);
 		repository.save(roomModel);

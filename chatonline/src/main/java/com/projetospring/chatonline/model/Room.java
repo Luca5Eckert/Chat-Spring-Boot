@@ -3,6 +3,8 @@ package com.projetospring.chatonline.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.projetospring.chatonline.dtos.RoomDto;
+
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

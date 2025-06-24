@@ -1,7 +1,5 @@
 package com.projetospring.chatonline.service;
 
-import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +13,8 @@ import com.projetospring.chatonline.model.TypeUser;
 import com.projetospring.chatonline.model.User;
 import com.projetospring.chatonline.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class RegisterCase {
 
@@ -24,6 +24,7 @@ public class RegisterCase {
 	@Autowired
 	private PasswordEncoderCrypto encoder;
 
+	@Transactional
 	public UserDto execute(RegistrationUserDto userRegister) {
 		validateRegistrationData(userRegister);
 		User user = registerToUser(userRegister);

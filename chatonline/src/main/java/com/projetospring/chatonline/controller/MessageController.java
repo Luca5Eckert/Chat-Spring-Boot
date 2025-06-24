@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projetospring.chatonline.dtos.ResponseDto;
-import com.projetospring.chatonline.dtos.SendMenssageDto;
+import com.projetospring.chatonline.dtos.SendMessageDto;
+import com.projetospring.chatonline.infrastructure.security.UserDetailsImpl;
 import com.projetospring.chatonline.model.User;
 import com.projetospring.chatonline.service.SendMessageCase;
 
@@ -20,11 +22,11 @@ public class MessageController {
 	@Autowired
 	private SendMessageCase sendMessageCase;
 
-	@MessageMapping("/api/chat/{room_id}/sendMessage")
-	public ResponseEntity<ResponseDto> sendMessage(@RequestBody @Valid SendMenssageDto sendMenssageDto,
+	@MessageMapping("/api/chat/sendMessage")
+	public ResponseEntity<ResponseDto> sendMessage(@RequestBody @Valid SendMessageDto sendMessageDto,
 			Authentication authentication) {
-		User user = (User) authentication.getAuthorities();
-		sendMessageCase.execute(sendMenssageDto, user);
+		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+		sendMessageCase.execute(sendMessageDto, userDetails.getUser());
 
 		return ResponseEntity.accepted().body(new ResponseDto(201, "Message sent successfully", null));
 	}
