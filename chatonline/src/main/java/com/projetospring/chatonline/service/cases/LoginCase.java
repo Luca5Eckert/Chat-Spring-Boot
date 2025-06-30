@@ -24,7 +24,12 @@ public class LoginCase {
 
 	private final JwtService jwtService;
 
-	@Transactional
+    public LoginCase(AuthenticationManager authenticationManager, JwtService jwtService) {
+        this.authenticationManager = authenticationManager;
+        this.jwtService = jwtService;
+    }
+
+    @Transactional
 	public JwtTolkenDto execute(@Valid LoginUserDto userLogin) throws AuthenticationValidationException {
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(userLogin.username(), userLogin.password()));

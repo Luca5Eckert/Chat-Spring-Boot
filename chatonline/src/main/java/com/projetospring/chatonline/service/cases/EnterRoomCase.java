@@ -21,6 +21,11 @@ public class EnterRoomCase {
     private final UserStatusRoomRepository userStatusRoomRepository;
     private final RoomRepository roomRepository;
 
+    public EnterRoomCase(UserStatusRoomRepository userStatusRoomRepository, RoomRepository roomRepository) {
+        this.userStatusRoomRepository = userStatusRoomRepository;
+        this.roomRepository = roomRepository;
+    }
+
     @Transactional
     public void execute(@Valid EnterRoomDto enterRoomDto, User user) {
         Room room = findRoomById(enterRoomDto.roomIdDto().id());

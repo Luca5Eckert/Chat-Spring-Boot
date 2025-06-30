@@ -24,7 +24,12 @@ public class RegisterCase {
 
 	private final PasswordEncoderCrypto encoder;
 
-	@Transactional
+    public RegisterCase(UserRepository repository, PasswordEncoderCrypto encoder) {
+        this.repository = repository;
+        this.encoder = encoder;
+    }
+
+    @Transactional
 	public UserDto execute(RegistrationUserDto userRegister) {
 		validateRegistrationData(userRegister);
 		User user = registerToUser(userRegister);

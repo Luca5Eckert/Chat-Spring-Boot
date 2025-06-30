@@ -35,7 +35,13 @@ public class SendMessageCase {
 
 	private final RoomRepository roomRepository;
 
-	@Transactional
+    public SendMessageCase(MessageRepository messageRepository, UserStatusRoomRepository repositoryUserStatus, RoomRepository roomRepository) {
+        this.messageRepository = messageRepository;
+        this.repositoryUserStatus = repositoryUserStatus;
+        this.roomRepository = roomRepository;
+    }
+
+    @Transactional
 	@SendTo("/topic/{sendFor}")
 	public Message execute(@Valid @Payload SendMessageDto sendMenssageDto, User user) {
 		Room room = getRoomFromDatabase(sendMenssageDto.sendFor())

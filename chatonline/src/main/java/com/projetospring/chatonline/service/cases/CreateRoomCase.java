@@ -20,7 +20,11 @@ public class CreateRoomCase {
 
 	private final RoomRepository repository;
 
-	@Transactional
+    public CreateRoomCase(RoomRepository repository) {
+        this.repository = repository;
+    }
+
+    @Transactional
 	public RoomDto execute(CreateRoomDto createRoomDto, User userSend) {
 		var roomModel = dtoToModel(createRoomDto, userSend);
 		repository.save(roomModel);
