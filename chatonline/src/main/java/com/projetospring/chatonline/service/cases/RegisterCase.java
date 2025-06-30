@@ -1,5 +1,6 @@
-package com.projetospring.chatonline.service;
+package com.projetospring.chatonline.service.cases;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +17,12 @@ import com.projetospring.chatonline.repository.UserRepository;
 import jakarta.transaction.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class RegisterCase {
 
-	@Autowired
-	private UserRepository repository;
+	private final UserRepository repository;
 
-	@Autowired
-	private PasswordEncoderCrypto encoder;
+	private final PasswordEncoderCrypto encoder;
 
 	@Transactional
 	public UserDto execute(RegistrationUserDto userRegister) {

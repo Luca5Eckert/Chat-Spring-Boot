@@ -1,7 +1,8 @@
-package com.projetospring.chatonline.service;
+package com.projetospring.chatonline.service.cases;
 
 import java.time.LocalDateTime;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,10 @@ import com.projetospring.chatonline.repository.RoomRepository;
 import jakarta.transaction.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class CreateRoomCase {
 
-	@Autowired
-	private RoomRepository repository;
+	private final RoomRepository repository;
 
 	@Transactional
 	public RoomDto execute(CreateRoomDto createRoomDto, User userSend) {

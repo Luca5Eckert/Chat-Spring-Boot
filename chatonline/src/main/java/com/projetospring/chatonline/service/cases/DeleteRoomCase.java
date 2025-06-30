@@ -1,4 +1,4 @@
-package com.projetospring.chatonline.service;
+package com.projetospring.chatonline.service.cases;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

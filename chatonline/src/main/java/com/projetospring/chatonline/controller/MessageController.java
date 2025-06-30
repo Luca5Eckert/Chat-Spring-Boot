@@ -4,15 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projetospring.chatonline.dtos.ResponseDto;
 import com.projetospring.chatonline.dtos.SendMessageDto;
 import com.projetospring.chatonline.infrastructure.security.UserDetailsImpl;
-import com.projetospring.chatonline.model.User;
-import com.projetospring.chatonline.service.SendMessageCase;
+import com.projetospring.chatonline.service.cases.SendMessageCase;
 
 import jakarta.validation.Valid;
 

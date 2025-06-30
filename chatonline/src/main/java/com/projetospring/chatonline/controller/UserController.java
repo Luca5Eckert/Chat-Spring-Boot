@@ -3,7 +3,6 @@ package com.projetospring.chatonline.controller;
 import com.projetospring.chatonline.dtos.JwtTolkenDto;
 import com.projetospring.chatonline.dtos.ResponseDto;
 import com.projetospring.chatonline.dtos.UserDto;
-import com.projetospring.chatonline.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.projetospring.chatonline.dtos.LoginUserDto;
 
 import com.projetospring.chatonline.dtos.RegistrationUserDto;
-import com.projetospring.chatonline.service.LoginCase;
-import com.projetospring.chatonline.service.RegisterCase;
+import com.projetospring.chatonline.service.cases.LoginCase;
+import com.projetospring.chatonline.service.cases.RegisterCase;
 
 import jakarta.validation.Valid;
 

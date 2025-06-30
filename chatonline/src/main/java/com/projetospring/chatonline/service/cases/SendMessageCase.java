@@ -1,9 +1,12 @@
-package com.projetospring.chatonline.service;
+package com.projetospring.chatonline.service.cases;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Service;
 
 import com.projetospring.chatonline.dtos.RoomIdDto;
@@ -23,19 +26,18 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Service
+@RequiredArgsConstructor
 public class SendMessageCase {
 
-	@Autowired
-	private MessageRepository messageRepository;
+	private final MessageRepository messageRepository;
 
-	@Autowired
-	private UserStatusRoomRepository repositoryUserStatus;
+	private final UserStatusRoomRepository repositoryUserStatus;
 
-	@Autowired
-	private RoomRepository roomRepository;
+	private final RoomRepository roomRepository;
 
 	@Transactional
-	public void execute(@Valid SendMessageDto sendMenssageDto, User user) {
+	@SendTo("/topic/{sendFor}")
+	public Message execute(@Valid @Payload SendMessageDto sendMenssageDto, User user) {
 		Room room = getRoomFromDatabase(sendMenssageDto.sendFor())
 				.orElseThrow(() -> new RoomDatabaseException("The aplication can't found the room"));
 
@@ -44,6 +46,8 @@ public class SendMessageCase {
 		var message = dtoToMessage(sendMenssageDto, room, user);
 
 		messageRepository.save(message);
+
+		return message;
 	}
 
 	public Optional<Room> getRoomFromDatabase(RoomIdDto roomIdDto) {

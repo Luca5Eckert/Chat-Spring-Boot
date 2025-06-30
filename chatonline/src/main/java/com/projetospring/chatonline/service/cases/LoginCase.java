@@ -1,11 +1,10 @@
-package com.projetospring.chatonline.service;
+package com.projetospring.chatonline.service.cases;
 
 import com.projetospring.chatonline.dtos.JwtTolkenDto;
 import com.projetospring.chatonline.infrastructure.security.UserDetailsImpl;
 import com.projetospring.chatonline.infrastructure.tolkens.JwtService;
-import com.projetospring.chatonline.model.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,13 +17,12 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Service
+@RequiredArgsConstructor
 public class LoginCase {
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
+	private final AuthenticationManager authenticationManager;
 
-	@Autowired
-	private JwtService jwtService;
+	private final JwtService jwtService;
 
 	@Transactional
 	public JwtTolkenDto execute(@Valid LoginUserDto userLogin) throws AuthenticationValidationException {

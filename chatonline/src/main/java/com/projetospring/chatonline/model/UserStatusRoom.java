@@ -22,17 +22,29 @@ public class UserStatusRoom {
 	@Column(nullable = false)
 	private TypeRoomAccess roomAccess;
 
+	@Column(nullable = false)
+	private boolean active;
+
 	private UserStatusRoom(@NotNull UserStatusRoomBuilder userStatusRoomBuilder) {
 		this.id = userStatusRoomBuilder.id;
 		this.roomAccess = userStatusRoomBuilder.roomAccess;
+		this.active = userStatusRoomBuilder.active;
 	}
 
 	public boolean canSendMessage() {
 		return switch (roomAccess) {
-		case BLOCKED -> false;
-		default -> true;
+			case BLOCKED -> false;
+			default -> true;
 		};
 	}
+
+	public boolean canEnterInRoom() {
+		return switch(roomAccess){
+			case BLOCKED -> false;
+			default -> true;
+		};
+	}
+
 
 	public User getUser() {
 		return id.getUser();
@@ -42,29 +54,41 @@ public class UserStatusRoom {
 		return id.getRoom();
 	}
 
-	public TypeRoomAccess getRoomAccess() {
-		return roomAccess;
-	}
-
-	public void setRoomAccess(@NotNull TypeRoomAccess roomAccess) {
+    public void setRoomAccess(@NotNull TypeRoomAccess roomAccess) {
 		this.roomAccess = roomAccess;
 	}
 
-	public class UserStatusRoomBuilder {
+	public void setActive(boolean active){
+		this.active = active;
+	}
+
+	public static class UserStatusRoomBuilder {
 
 		private final UserStatusRoomId id;
 
 		private TypeRoomAccess roomAccess;
 
+		private boolean active;
+
 		public UserStatusRoomBuilder(User user, Room room) {
 			this.id = new UserStatusRoomId(user, room);
 		}
 
-		public void setRoomAcesss(TypeRoomAccess roomAccess) {
-			this.roomAccess = roomAccess;
+		public UserStatusRoomBuilder(UserStatusRoomId userStatusRoomId) {
+			this.id = userStatusRoomId;
 		}
 
-		public UserStatusRoom builder() {
+		public UserStatusRoomBuilder setRoomAccess(TypeRoomAccess roomAccess) {
+			this.roomAccess = roomAccess;
+			return this;
+		}
+
+		public UserStatusRoomBuilder setActive(boolean active){
+			this.active = active;
+			return this;
+		}
+
+		public UserStatusRoom build() {
 			return new UserStatusRoom(this);
 		}
 
