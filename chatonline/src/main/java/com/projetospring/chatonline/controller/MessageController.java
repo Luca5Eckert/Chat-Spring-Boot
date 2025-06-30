@@ -17,10 +17,13 @@ import jakarta.validation.Valid;
 @RestController
 public class MessageController {
 
-	@Autowired
-	private SendMessageCase sendMessageCase;
+	private final SendMessageCase sendMessageCase;
 
-	@MessageMapping("/api/chat/sendMessage")
+    public MessageController(SendMessageCase sendMessageCase) {
+        this.sendMessageCase = sendMessageCase;
+    }
+
+    @MessageMapping("/api/chat/sendMessage")
 	public ResponseEntity<ResponseDto> sendMessage(@RequestBody @Valid SendMessageDto sendMessageDto,
 			Authentication authentication) {
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();

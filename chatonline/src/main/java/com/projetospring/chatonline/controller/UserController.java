@@ -21,13 +21,16 @@ import jakarta.validation.Valid;
 @RestController
 public class UserController {
 
-	@Autowired
-	private LoginCase loginCase;
+	private final LoginCase loginCase;
 
-	@Autowired
-	private RegisterCase registerCase;
+	private final RegisterCase registerCase;
 
-	@PostMapping("/api/user/register")
+    public UserController(LoginCase loginCase, RegisterCase registerCase) {
+        this.loginCase = loginCase;
+        this.registerCase = registerCase;
+    }
+
+    @PostMapping("/api/user/register")
 	public ResponseEntity<ResponseDto> registerUser(@RequestBody @Valid RegistrationUserDto userRegister) {
 		UserDto userCreate = registerCase.execute(userRegister);
 		
