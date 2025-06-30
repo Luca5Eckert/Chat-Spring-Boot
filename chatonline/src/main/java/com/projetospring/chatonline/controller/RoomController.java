@@ -33,7 +33,13 @@ public class RoomController {
 
 	private final EnterRoomCase enterRoomCase;
 
-	@PostMapping("api/room/enter")
+    public RoomController(CreateRoomCase createRoomCase, DeleteRoomCase deleteRoomCase, EnterRoomCase enterRoomCase) {
+        this.createRoomCase = createRoomCase;
+        this.deleteRoomCase = deleteRoomCase;
+        this.enterRoomCase = enterRoomCase;
+    }
+
+    @PostMapping("api/room/enter")
 	public ResponseEntity<ResponseDto> enterInRoom(@Valid @RequestBody EnterRoomDto enterRoomDto){
 		UserDetailsImpl userSend = getUserDetails();
 		enterRoomCase.execute(enterRoomDto, userSend.getUser());
@@ -56,7 +62,9 @@ public class RoomController {
 
 	@PostMapping("/api/room/delete")
 	public ResponseEntity<ResponseDto> deleteRoom(@Valid @RequestBody RoomDto roomDto, Authentication authentication) {
-		String nameRoom = deleteRoomCase.execute(roomDto);
+		UserDetailsImpl userDetails = getUserDetails();
+
+		String nameRoom = deleteRoomCase.execute(roomDto, userDetails.getUser());
 		
 		return ResponseEntity.ok(new ResponseDto(201, "Delete room with successfully", nameRoom));
 	}

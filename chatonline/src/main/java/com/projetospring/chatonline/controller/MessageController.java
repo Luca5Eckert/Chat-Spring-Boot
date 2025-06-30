@@ -24,6 +24,7 @@ public class MessageController {
 	public ResponseEntity<ResponseDto> sendMessage(@RequestBody @Valid SendMessageDto sendMessageDto,
 			Authentication authentication) {
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
 		sendMessageCase.execute(sendMessageDto, userDetails.getUser());
 
 		return ResponseEntity.accepted().body(new ResponseDto(201, "Message sent successfully", null));
