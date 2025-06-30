@@ -8,7 +8,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Value;
 
 @Entity
 @Table(name = "user_status_room_tb")
@@ -38,10 +37,17 @@ public class UserStatusRoom {
 		};
 	}
 
-	public boolean canEnterInRoom() {
+	public boolean canEnterRoom() {
 		return switch(roomAccess){
 			case BLOCKED -> false;
 			default -> true;
+		};
+	}
+
+	public boolean canDeleteRoom() {
+		return switch(roomAccess){
+			case ADMINISTRATOR -> true;
+			default -> false;
 		};
 	}
 

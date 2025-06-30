@@ -66,7 +66,7 @@ public class EnterRoomCase {
     private void ensureUserCanEnterRoom(UserStatusRoomId id, User user, Room room) {
         userStatusRoomRepository.findById(id)
                 .ifPresent(status -> {
-                    if (!status.canEnterInRoom()) {
+                    if (!status.canEnterRoom()) {
                         throw new AccessDeniedEnterRoomException(
                                 "User doesn't have permission to enter room: " + room.getId()
                         );
