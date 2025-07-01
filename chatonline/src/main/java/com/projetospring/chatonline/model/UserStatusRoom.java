@@ -68,7 +68,14 @@ public class UserStatusRoom {
 		this.active = active;
 	}
 
-	public static class UserStatusRoomBuilder {
+    public boolean canEditRoom() {
+		return switch(roomAccess){
+			case ADMINISTRATOR -> true;
+			default -> false;
+		};
+	}
+
+    public static class UserStatusRoomBuilder {
 
 		private final UserStatusRoomId id;
 

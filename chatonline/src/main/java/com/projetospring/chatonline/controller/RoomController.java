@@ -46,10 +46,6 @@ public class RoomController {
 		return ResponseEntity.ok(new ResponseDto(201, "Room access permission", null));
 	}
 
-	public ResponseEntity<ResponseDto> addUserInRoom(@Valid @RequestBody EnterRoomCase enterInTheRoomCase){
-		return null;
-	}
-
 
 	@PostMapping("/api/room/create")
 	public ResponseEntity<ResponseDto> createRoom(@Valid @RequestBody CreateRoomDto createRoomDto) {
