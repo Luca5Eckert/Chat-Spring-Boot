@@ -24,7 +24,6 @@ import com.projetospring.chatonline.service.cases.DeleteRoomCase;
 import jakarta.validation.Valid;
 
 @RestController
-@RequiredArgsConstructor
 public class RoomController {
 
 	private final CreateRoomCase createRoomCase;

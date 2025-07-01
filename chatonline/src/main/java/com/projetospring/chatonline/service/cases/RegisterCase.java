@@ -17,7 +17,6 @@ import com.projetospring.chatonline.repository.UserRepository;
 import jakarta.transaction.Transactional;
 
 @Service
-@RequiredArgsConstructor
 public class RegisterCase {
 
 	private final UserRepository repository;

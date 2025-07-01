@@ -26,7 +26,6 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Service
-@RequiredArgsConstructor
 public class SendMessageCase {
 
 	private final MessageRepository messageRepository;

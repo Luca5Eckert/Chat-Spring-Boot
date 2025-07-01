@@ -15,7 +15,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class EnterRoomCase {
 
     private final UserStatusRoomRepository userStatusRoomRepository;
@@ -44,6 +43,7 @@ public class EnterRoomCase {
             UserStatusRoom existingStatus = userStatus.get();
             existingStatus.setActive(true);
             userStatusRoomRepository.save(existingStatus);
+
         } else {
             UserStatusRoom newUserStatusRoom = new UserStatusRoom.UserStatusRoomBuilder(userStatusRoomId)
                     .setRoomAccess(TypeRoomAccess.NORMAL)

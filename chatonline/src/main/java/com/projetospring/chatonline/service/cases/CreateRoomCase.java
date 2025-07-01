@@ -15,7 +15,6 @@ import com.projetospring.chatonline.repository.RoomRepository;
 import jakarta.transaction.Transactional;
 
 @Service
-@RequiredArgsConstructor
 public class CreateRoomCase {
 
 	private final RoomRepository repository;
