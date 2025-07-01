@@ -1,6 +1,8 @@
 package com.projetospring.chatonline.dtos;
 
-public record EnterRoomDto(RoomIdDto roomIdDto, String password) {
+import jakarta.validation.constraints.NotBlank;
+
+public record EnterRoomDto(@NotBlank RoomIdDto roomIdDto, @NotBlank String password) {
 
 }
 

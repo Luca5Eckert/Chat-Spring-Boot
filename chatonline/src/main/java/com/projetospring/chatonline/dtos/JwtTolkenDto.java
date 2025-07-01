@@ -1,4 +1,6 @@
 package com.projetospring.chatonline.dtos;
 
-public record JwtTolkenDto(String tolken) {
+import jakarta.validation.constraints.NotBlank;
+
+public record JwtTolkenDto(@NotBlank String tolken) {
 }
