@@ -1,5 +1,6 @@
 package com.projetospring.chatonline.controller;
 
+import com.projetospring.chatonline.dtos.AddUserRoomDto;
 import com.projetospring.chatonline.dtos.EditUserStatusRoomDto;
 import com.projetospring.chatonline.dtos.ResponseDto;
 import com.projetospring.chatonline.service.cases.EditUserStatusRoomCase;
@@ -25,7 +26,9 @@ public class UserStatusRoomController {
     }
 
 
-    public ResponseEntity<ResponseDto> addUserInRoom(@Valid @RequestBody EnterRoomCase enterInTheRoomCase){
+    public ResponseEntity<ResponseDto> addUserInRoom(@Valid @RequestBody AddUserRoomDto addUserRoomDto){
+
+
         return null;
     }
 

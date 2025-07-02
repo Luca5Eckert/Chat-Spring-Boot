@@ -19,7 +19,6 @@ public class EditUserStatusRoomCase {
     public void execute(EditUserStatusRoomDto editUserStatusRoomDto){
         UserStatusRoom userStatusRoom = userStatusRoomRepository.findById(editUserStatusRoomDto.id()).orElseThrow(() -> new UserStatusRoomDontFoundException("The aplication can't found the user status"));
 
-
         if(!userStatusRoom.canEditRoom()){
             throw new UserDontCanDeleteRoomException("The user does not have permission to edit the room. To do so, you need to be an administrator");
         }

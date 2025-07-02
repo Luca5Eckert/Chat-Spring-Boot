@@ -8,7 +8,6 @@ import com.projetospring.chatonline.repository.RoomRepository;
 import com.projetospring.chatonline.repository.UserStatusRoomRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -31,18 +30,17 @@ public class EnterRoomCase {
 
         UserStatusRoomId userStatusRoomId = createUserStatusRoomId(user, room);
 
-        ensureUserCanEnterRoom(userStatusRoomId, user, room);
+        UserStatusRoom userStatusRoom = checkUserPermissionAndRetrieveStatus(userStatusRoomId);
 
-        updateUserRoomStatus(userStatusRoomId);
+        updateUserRoomStatus(userStatusRoom,userStatusRoomId);
     }
 
-    private void updateUserRoomStatus(UserStatusRoomId userStatusRoomId) {
-        Optional<UserStatusRoom> userStatus = userStatusRoomRepository.findById(userStatusRoomId);
+    private void updateUserRoomStatus(UserStatusRoom userStatusRoom, UserStatusRoomId userStatusRoomId) {
 
-        if (userStatus.isPresent()) {
-            UserStatusRoom existingStatus = userStatus.get();
-            existingStatus.setActive(true);
-            userStatusRoomRepository.save(existingStatus);
+        if (userStatusRoom != null) {
+            userStatusRoom.setActive(true);
+
+            userStatusRoomRepository.save(userStatusRoom);
 
         } else {
             UserStatusRoom newUserStatusRoom = new UserStatusRoom.UserStatusRoomBuilder(userStatusRoomId)
@@ -63,14 +61,15 @@ public class EnterRoomCase {
         return new UserStatusRoomId(user, room);
     }
 
-    private void ensureUserCanEnterRoom(UserStatusRoomId id, User user, Room room) {
-        userStatusRoomRepository.findById(id)
-                .ifPresent(status -> {
+    private UserStatusRoom checkUserPermissionAndRetrieveStatus(UserStatusRoomId id) {
+        Optional<UserStatusRoom> userStatusRoom = userStatusRoomRepository.findById(id);
+        userStatusRoom.ifPresent(status -> {
                     if (!status.canEnterRoom()) {
                         throw new AccessDeniedEnterRoomException(
-                                "User doesn't have permission to enter room: " + room.getId()
+                                "User doesn't have permission to enter room: " + id.getRoom().getId()
                         );
                     }
                 });
+        return userStatusRoom.orElse(null);
     }
 }
