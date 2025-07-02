@@ -19,9 +19,9 @@ import jakarta.transaction.Transactional;
 @Service
 public class RegisterCase {
 
-	private final UserRepository repository;
+    private final UserRepository repository;
 
-	private final PasswordEncoderCrypto encoder;
+    private final PasswordEncoderCrypto encoder;
 
     public RegisterCase(UserRepository repository, PasswordEncoderCrypto encoder) {
         this.repository = repository;
@@ -29,44 +29,44 @@ public class RegisterCase {
     }
 
     @Transactional
-	public UserDto execute(RegistrationUserDto userRegister) {
-		validateRegistrationData(userRegister);
-		User user = registerToUser(userRegister);
+    public UserDto execute(RegistrationUserDto userRegister) {
+        validateRegistrationData(userRegister);
+        User user = registerToUser(userRegister);
 
-		repository.save(user);
-		return new UserDto(user);
-	}
+        repository.save(user);
+        return new UserDto(user);
+    }
 
-	private void validateRegistrationData(RegistrationUserDto userRegister) {
-		checkPasswordConfirmation(userRegister);
+    private void validateRegistrationData(RegistrationUserDto userRegister) {
+        checkPasswordConfirmation(userRegister);
 
-		checkIfEmailIsUnique(userRegister);
+        checkIfEmailIsUnique(userRegister);
 
-		checkIfUsernameIsUnique(userRegister);
+        checkIfUsernameIsUnique(userRegister);
 
-	}
+    }
 
-	private void checkPasswordConfirmation(RegistrationUserDto userRegister) {
-		if (!(userRegister.isTheSamePassword())) {
-			throw new PasswordConfirmationException("Password and confirmation do not match");
-		}
-	}
+    private void checkPasswordConfirmation(RegistrationUserDto userRegister) {
+        if (!(userRegister.isTheSamePassword())) {
+            throw new PasswordConfirmationException("Password and confirmation do not match");
+        }
+    }
 
-	private void checkIfEmailIsUnique(RegistrationUserDto userRegister) {
-		if (repository.findByEmail(userRegister.email()).isPresent()) {
-			throw new EmailInvalidException("Email is already in use");
-		}
-	}
+    private void checkIfEmailIsUnique(RegistrationUserDto userRegister) {
+        if (repository.findByEmail(userRegister.email()).isPresent()) {
+            throw new EmailInvalidException("Email is already in use");
+        }
+    }
 
-	private void checkIfUsernameIsUnique(RegistrationUserDto userRegister) {
-		if (repository.findByUsername(userRegister.username()).isPresent()) {
-			throw new UsernameInvalidException("Username is already in use");
-		}
-	}
+    private void checkIfUsernameIsUnique(RegistrationUserDto userRegister) {
+        if (repository.findByUsername(userRegister.username()).isPresent()) {
+            throw new UsernameInvalidException("Username is already in use");
+        }
+    }
 
-	private User registerToUser(RegistrationUserDto userRegister) {
-		String encodedPassword = encoder.encryptPassword(userRegister.password());
-		return User.createUser(userRegister.username(), userRegister.email(), encodedPassword, TypeUser.USER);
-	}
+    private User registerToUser(RegistrationUserDto userRegister) {
+        String encodedPassword = encoder.encryptPassword(userRegister.password());
+        return User.createUser(userRegister.username(), userRegister.email(), encodedPassword, TypeUser.USER);
+    }
 
 }

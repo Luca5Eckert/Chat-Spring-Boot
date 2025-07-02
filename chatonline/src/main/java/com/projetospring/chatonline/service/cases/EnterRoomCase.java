@@ -32,7 +32,7 @@ public class EnterRoomCase {
 
         UserStatusRoom userStatusRoom = checkUserPermissionAndRetrieveStatus(userStatusRoomId);
 
-        updateUserRoomStatus(userStatusRoom,userStatusRoomId);
+        updateUserRoomStatus(userStatusRoom, userStatusRoomId);
     }
 
     private void updateUserRoomStatus(UserStatusRoom userStatusRoom, UserStatusRoomId userStatusRoomId) {
@@ -64,12 +64,12 @@ public class EnterRoomCase {
     private UserStatusRoom checkUserPermissionAndRetrieveStatus(UserStatusRoomId id) {
         Optional<UserStatusRoom> userStatusRoom = userStatusRoomRepository.findById(id);
         userStatusRoom.ifPresent(status -> {
-                    if (!status.canEnterRoom()) {
-                        throw new AccessDeniedEnterRoomException(
-                                "User doesn't have permission to enter room: " + id.getRoom().getId()
-                        );
-                    }
-                });
+            if (!status.canEnterRoom()) {
+                throw new AccessDeniedEnterRoomException(
+                        "User doesn't have permission to enter room: " + id.getRoom().getId()
+                );
+            }
+        });
         return userStatusRoom.orElse(null);
     }
 }

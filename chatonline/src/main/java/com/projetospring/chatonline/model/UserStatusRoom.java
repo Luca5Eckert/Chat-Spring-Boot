@@ -75,7 +75,11 @@ public class UserStatusRoom {
 		};
 	}
 
-    public static class UserStatusRoomBuilder {
+	public boolean haveAdministratorPermission() {
+		return roomAccess.equals(TypeRoomAccess.ADMINISTRATOR);
+	}
+
+	public static class UserStatusRoomBuilder {
 
 		private final UserStatusRoomId id;
 

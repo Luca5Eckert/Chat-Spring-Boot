@@ -19,9 +19,9 @@ import jakarta.validation.Valid;
 @Service
 public class LoginCase {
 
-	private final AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-	private final JwtService jwtService;
+    private final JwtService jwtService;
 
     public LoginCase(AuthenticationManager authenticationManager, JwtService jwtService) {
         this.authenticationManager = authenticationManager;
@@ -29,13 +29,13 @@ public class LoginCase {
     }
 
     @Transactional
-	public JwtTolkenDto execute(@Valid LoginUserDto userLogin) throws AuthenticationValidationException {
-		Authentication authentication = authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(userLogin.username(), userLogin.password()));
+    public JwtTolkenDto execute(@Valid LoginUserDto userLogin) throws AuthenticationValidationException {
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(userLogin.username(), userLogin.password()));
 
-		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-		return jwtService.generateToken(userDetails);
-	}
+        return jwtService.generateToken(userDetails);
+    }
 
 }

@@ -17,21 +17,21 @@ import jakarta.transaction.Transactional;
 @Service
 public class CreateRoomCase {
 
-	private final RoomRepository repository;
+    private final RoomRepository repository;
 
     public CreateRoomCase(RoomRepository repository) {
         this.repository = repository;
     }
 
     @Transactional
-	public RoomDto execute(CreateRoomDto createRoomDto, User userSend) {
-		var roomModel = dtoToModel(createRoomDto, userSend);
-		repository.save(roomModel);
-		return new RoomDto(roomModel);
-	}
+    public RoomDto execute(CreateRoomDto createRoomDto, User userSend) {
+        var roomModel = dtoToModel(createRoomDto, userSend);
+        repository.save(roomModel);
+        return new RoomDto(roomModel);
+    }
 
-	public Room dtoToModel(CreateRoomDto createRoomDto, User userSend) {
-		return Room.createRoom(null, createRoomDto.name(), createRoomDto.type(), 0, LocalDateTime.now(),
-				createRoomDto.description(), userSend);
-	}
+    public Room dtoToModel(CreateRoomDto createRoomDto, User userSend) {
+        return Room.createRoom(null, createRoomDto.name(), createRoomDto.type(), 0, LocalDateTime.now(),
+                createRoomDto.description(), userSend);
+    }
 }

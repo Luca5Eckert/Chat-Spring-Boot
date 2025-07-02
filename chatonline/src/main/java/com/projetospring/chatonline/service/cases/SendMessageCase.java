@@ -28,11 +28,11 @@ import jakarta.validation.Valid;
 @Service
 public class SendMessageCase {
 
-	private final MessageRepository messageRepository;
+    private final MessageRepository messageRepository;
 
-	private final UserStatusRoomRepository repositoryUserStatus;
+    private final UserStatusRoomRepository repositoryUserStatus;
 
-	private final RoomRepository roomRepository;
+    private final RoomRepository roomRepository;
 
     public SendMessageCase(MessageRepository messageRepository, UserStatusRoomRepository repositoryUserStatus, RoomRepository roomRepository) {
         this.messageRepository = messageRepository;
@@ -41,40 +41,40 @@ public class SendMessageCase {
     }
 
     @Transactional
-	@SendTo("/topic/{sendFor}")
-	public Message execute(@Valid @Payload SendMessageDto sendMenssageDto, User user) {
-		Room room = getRoomFromDatabase(sendMenssageDto.sendFor())
-				.orElseThrow(() -> new RoomDatabaseException("The aplication can't found the room"));
+    @SendTo("/topic/{sendFor}")
+    public Message execute(@Valid @Payload SendMessageDto sendMenssageDto, User user) {
+        Room room = getRoomFromDatabase(sendMenssageDto.sendFor())
+                .orElseThrow(() -> new RoomDatabaseException("The aplication can't found the room"));
 
-		checkPermissionUser(room, user);
+        checkPermissionUser(room, user);
 
-		var message = dtoToMessage(sendMenssageDto, room, user);
+        var message = dtoToMessage(sendMenssageDto, room, user);
 
-		messageRepository.save(message);
+        messageRepository.save(message);
 
-		return message;
-	}
+        return message;
+    }
 
-	public Optional<Room> getRoomFromDatabase(RoomIdDto roomIdDto) {
-		return roomRepository.findById(roomIdDto.id());
-	}
+    public Optional<Room> getRoomFromDatabase(RoomIdDto roomIdDto) {
+        return roomRepository.findById(roomIdDto.id());
+    }
 
-	public void checkPermissionUser(Room room, User user) {
-		UserStatusRoom statusRoom = getStatusUser(room, user).orElseThrow(
-				() -> new PermissionUserInvalidException("Error in found the association between user and room"));
+    public void checkPermissionUser(Room room, User user) {
+        UserStatusRoom statusRoom = getStatusUser(room, user).orElseThrow(
+                () -> new PermissionUserInvalidException("Error in found the association between user and room"));
 
-		if (!statusRoom.canSendMessage()) {
-			throw new PermissionUserInvalidException("User don't have the permission to send message in this room");
-		}
+        if (!statusRoom.canSendMessage()) {
+            throw new PermissionUserInvalidException("User don't have the permission to send message in this room");
+        }
 
-	}
+    }
 
-	public Optional<UserStatusRoom> getStatusUser(Room room, User user) {
-		UserStatusRoomId id = new UserStatusRoomId(user, room);
-		return repositoryUserStatus.findById(id);
-	}
+    public Optional<UserStatusRoom> getStatusUser(Room room, User user) {
+        UserStatusRoomId id = new UserStatusRoomId(user, room);
+        return repositoryUserStatus.findById(id);
+    }
 
-	public Message dtoToMessage(SendMessageDto sendMenssageDto, Room room, User user) {
-		return Message.createMessage(null, user, room, LocalDateTime.now(), sendMenssageDto.content());
-	}
+    public Message dtoToMessage(SendMessageDto sendMenssageDto, Room room, User user) {
+        return Message.createMessage(null, user, room, LocalDateTime.now(), sendMenssageDto.content());
+    }
 }
