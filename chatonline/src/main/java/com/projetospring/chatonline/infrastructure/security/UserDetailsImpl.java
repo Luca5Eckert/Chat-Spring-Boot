@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.projetospring.chatonline.model.User;
+import com.projetospring.chatonline.modules.user.domain.User;
 
 public final class UserDetailsImpl implements UserDetails {
 

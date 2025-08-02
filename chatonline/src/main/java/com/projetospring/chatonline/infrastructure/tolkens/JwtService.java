@@ -1,6 +1,6 @@
 package com.projetospring.chatonline.infrastructure.tolkens;
 
-import com.projetospring.chatonline.dtos.JwtTolkenDto;
+import com.projetospring.chatonline.core.dtos.JwtTolkenDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
