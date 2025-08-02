@@ -4,9 +4,10 @@ import com.projetospring.chatonline.modules.user.domain.annotations.StrongPasswo
 import com.projetospring.chatonline.modules.user.domain.annotations.ValidEmail;
 import com.projetospring.chatonline.modules.user.domain.annotations.ValidUsername;
 
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 
-public record RegistrationUserDto(@ValidUsername @NotBlank(message = "The username can not be null") String username,
+public record RegistrationUserDto(@ValidUsername @NotBlank(message = "The username can not be null") @Max(value=20, message="User name cannot be longer than 20 characters") String username,
 		@ValidEmail @NotBlank(message = "The email can not be null") String email,
 		@StrongPassword @NotBlank(message = "The password can not be null") String password,
 		String confirmationPassword) {

@@ -1,11 +1,13 @@
 package com.projetospring.chatonline.core.exceptions;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.time.LocalDateTime;
+import com.projetospring.chatonline.dtos.ResponseDto;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,24 +15,23 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+	public ResponseEntity<ResponseDto> handleValidationExceptions(MethodArgumentNotValidException ex) {
 
 		Map<String, String> errors = new HashMap<>();
 
 		ex.getBindingResult().getFieldErrors()
 				.forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
 
-		return ResponseEntity.badRequest().body(errors);
+		return ResponseEntity.badRequest().body(new ResponseDto(400, errors.toString(), null));
 	}
 
 	@ExceptionHandler(ValidationException.class)
-	public ResponseEntity<Map<String, Object>> handleValidationException(ValidationException ex) {
-		Map<String, Object> response = new HashMap<>();
-		response.put("message", ex.getMessage());
-		response.put("errorCode", ex.getErrorCode());
-		response.put("timestamp", LocalDateTime.now());
-		response.put("status", ex.getStatus().value());
+	public ResponseEntity<ResponseDto> handleValidationException(ValidationException ex) {
+		return ResponseEntity.status(ex.getStatus().value()).body(new ResponseDto(401, ex.getMessage(), null));
+	}
 
-		return ResponseEntity.status(ex.getStatus()).body(response);
+	@ExceptionHandler(BadCredentialsException.class)
+	public ResponseEntity<ResponseDto> handleBadCredentials(BadCredentialsException ex) {
+		return ResponseEntity.badRequest().body(new ResponseDto(401, "Invalid Credentials", null));
 	}
 }

@@ -5,11 +5,6 @@ import org.springframework.http.HttpStatus;
 
 public class PasswordConfirmationException extends ValidationException {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	public PasswordConfirmationException(String message) {
 		super(message, "PASSWORD_IS_NOT_VALID", HttpStatus.CONFLICT);
 	}

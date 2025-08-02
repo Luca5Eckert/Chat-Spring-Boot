@@ -3,10 +3,6 @@ package com.projetospring.chatonline.core.exceptions;
 import org.springframework.http.HttpStatus;
 
 public class ValidationException extends RuntimeException {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	private final String errorCode;
 	private final HttpStatus status;
@@ -15,10 +11,6 @@ public class ValidationException extends RuntimeException {
 		super(message);
 		this.errorCode = errorCode;
 		this.status = status;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	public String getErrorCode() {
