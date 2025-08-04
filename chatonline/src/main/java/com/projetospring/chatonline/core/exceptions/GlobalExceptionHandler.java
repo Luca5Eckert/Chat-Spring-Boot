@@ -1,12 +1,12 @@
 package com.projetospring.chatonline.core.exceptions;
 
+import com.projetospring.chatonline.core.dtos.ResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.projetospring.chatonline.dtos.ResponseDto;
 
 import java.util.HashMap;
 import java.util.Map;

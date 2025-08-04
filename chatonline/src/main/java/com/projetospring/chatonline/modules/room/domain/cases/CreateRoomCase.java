@@ -14,9 +14,13 @@ import com.projetospring.chatonline.modules.room.aplication.repository.RoomRepos
 public class CreateRoomCase {
 
 	@Autowired
-	private RoomRepository repository;
+	private final RoomRepository repository;
 
-	public void execute(CreateRoomDto createRoomDto, UserEntity userSend) {
+    public CreateRoomCase(RoomRepository repository) {
+        this.repository = repository;
+    }
+
+    public void execute(CreateRoomDto createRoomDto, UserEntity userSend) {
 		var roomModel = dtoToModel(createRoomDto, userSend);
 		repository.save(roomModel);
 	}

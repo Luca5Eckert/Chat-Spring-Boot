@@ -1,4 +1,4 @@
-package com.projetospring.chatonline.modules.userstatusroom.domain.services;
+package com.projetospring.chatonline.modules.userstatusroom.aplication.services;
 
 import com.projetospring.chatonline.modules.room.domain.Room;
 import com.projetospring.chatonline.modules.user.domain.UserEntity;
@@ -7,9 +7,9 @@ import com.projetospring.chatonline.modules.userstatusroom.aplication.repository
 import com.projetospring.chatonline.modules.userstatusroom.domain.UserStatusRoom;
 import com.projetospring.chatonline.modules.userstatusroom.domain.UserStatusRoomId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
+@Service
 public class UserStatusRoomService {
 
     @Autowired

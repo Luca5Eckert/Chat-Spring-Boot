@@ -1,6 +1,6 @@
 package com.projetospring.chatonline.core.security.controller;
 
-import com.projetospring.chatonline.core.dtos.JwtTolkenDto;
+import com.projetospring.chatonline.core.dtos.JwtTokenDto;
 import com.projetospring.chatonline.core.dtos.ResponseDto;
 import com.projetospring.chatonline.core.security.cases.LoginCase;
 import com.projetospring.chatonline.core.security.cases.RegisterCase;
@@ -32,7 +32,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> loginInUser(@RequestBody @Valid LoginUserDto userLogin) {
-        JwtTolkenDto jwtToken = loginCase.execute(userLogin);
+        JwtTokenDto jwtToken = loginCase.execute(userLogin);
         return ResponseEntity.accepted().body( new ResponseDto(200, "Login successful", jwtToken));
     }
 

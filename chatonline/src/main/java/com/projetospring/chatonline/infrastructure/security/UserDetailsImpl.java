@@ -3,11 +3,9 @@ package com.projetospring.chatonline.infrastructure.security;
 import java.util.Collection;
 import java.util.List;
 
-import com.projetospring.chatonline.modules.user.domain.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import com.projetospring.chatonline.modules.user.domain.User;
+import com.projetospring.chatonline.modules.user.domain.UserEntity;
 
 public final class UserDetailsImpl implements UserDetails {
 

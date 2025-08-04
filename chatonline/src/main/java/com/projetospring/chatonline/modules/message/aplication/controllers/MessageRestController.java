@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projetospring.chatonline.modules.message.aplication.dtos.SendMenssageDto;
-import com.projetospring.chatonline.modules.user.domain.User;
 import com.projetospring.chatonline.modules.message.domain.cases.SendMessageCase;
 
 import jakarta.validation.Valid;

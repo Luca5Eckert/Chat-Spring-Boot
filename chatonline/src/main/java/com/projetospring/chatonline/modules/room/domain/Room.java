@@ -6,9 +6,7 @@ import java.util.UUID;
 import com.projetospring.chatonline.modules.room.domain.enums.TypeRoom;
 import com.projetospring.chatonline.modules.user.domain.UserEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "room_tb")
@@ -74,7 +72,7 @@ public class Room {
     }
 
     String getDescription() {
-        return new String(description);
+        return description;
     }
 
     boolean isItFull() {
