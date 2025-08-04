@@ -1,17 +1,20 @@
 package com.projetospring.chatonline.modules.message.aplication.controllers;
 
+import com.projetospring.chatonline.core.security.UserAuthenticationService;
+import com.projetospring.chatonline.infrastructure.security.UserDetailsImpl;
 import com.projetospring.chatonline.modules.message.aplication.dtos.SendMenssageDto;
 import com.projetospring.chatonline.modules.message.domain.cases.SendMessageCase;
 import com.projetospring.chatonline.modules.user.domain.User;
-
-import jakarta.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.stereotype.Controller;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.stereotype.Controller;
+import org.springframework.messaging.simp.annotation.SendToUser;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+
+import java.security.Principal;
 
 @Controller
 public class MessageSocketController {
@@ -22,12 +25,15 @@ public class MessageSocketController {
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
+    @Autowired
+    private UserAuthenticationService userAuthenticationService;
+
     @MessageMapping("/chat/{roomId}/sendMessage")
     public void sendMessage(@DestinationVariable String roomId,
-                            @Payload @Valid SendMenssageDto sendMenssageDto,
-                            org.springframework.messaging.Message<?> message) {
+                            @Payload SendMenssageDto sendMenssageDto,
+                            Principal principal) {
 
-        User user = (User) message.getHeaders().get("simpUser");
+        User user = userAuthenticationService.getUserFromPrincipal(principal);
 
         sendMessageCase.execute(sendMenssageDto, user);
 
