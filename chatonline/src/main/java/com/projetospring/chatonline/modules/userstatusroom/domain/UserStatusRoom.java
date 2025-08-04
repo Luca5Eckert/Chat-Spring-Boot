@@ -33,6 +33,7 @@ public class UserStatusRoom {
 		this.active = userStatusRoomBuilder.active;
 	}
 
+
 	public boolean canSendMessage() {
 		return switch (roomAccess) {
 			case BLOCKED -> false;

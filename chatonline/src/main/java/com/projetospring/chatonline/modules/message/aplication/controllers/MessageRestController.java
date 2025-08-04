@@ -16,17 +16,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("api/message")
-public class MessageController {
+public class MessageRestController {
 
-	@Autowired
-	private SendMessageCase sendMessageCase;
-
-	@MessageMapping("/api/chat/{room_id}/sendMessage")
-	public ResponseEntity<?> sendMessage(@RequestBody @Valid SendMenssageDto sendMenssageDto,
-			Authentication authentication) {
-		User user = (User) authentication.getAuthorities();
-		sendMessageCase.execute(sendMenssageDto, user);
-		return ResponseEntity.accepted().body("Message sent successfully");
-	}
 
 }

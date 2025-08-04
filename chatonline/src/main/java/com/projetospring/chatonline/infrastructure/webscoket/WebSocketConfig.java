@@ -1,4 +1,4 @@
-package com.projetospring.chatonline.infrastructure;
+package com.projetospring.chatonline.infrastructure.webscoket;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

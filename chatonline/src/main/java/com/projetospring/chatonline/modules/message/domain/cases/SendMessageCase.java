@@ -37,12 +37,10 @@ public class SendMessageCase {
 		UserStatusRoom statusRoom = getStatusUser(room, user).orElseThrow(
 				() -> new PermissionUserInvalidException("Error in found the association between user and room"));
 
-		var typeAcess = statusRoom.getRoomAccess();
-
-		switch (typeAcess) {
-		case BLOCKED ->
+		if(!statusRoom.canSendMessage()){
 			throw new PermissionUserInvalidException("User don't have the permission to send message in this room");
 		}
+
 
 	}
 
