@@ -1,6 +1,6 @@
 package com.projetospring.chatonline.core.security.cases;
 
-import com.projetospring.chatonline.core.dtos.JwtTolkenDto;
+import com.projetospring.chatonline.core.dtos.JwtTokenDto;
 import com.projetospring.chatonline.infrastructure.security.UserDetailsImpl;
 import com.projetospring.chatonline.infrastructure.tolkens.JwtService;
 import org.springframework.security.core.Authentication;
@@ -23,7 +23,7 @@ public class LoginCase {
 	@Autowired
 	private JwtService jwtService;
 
-	public JwtTolkenDto execute(@Valid LoginUserDto userLogin) throws AuthenticationValidationException {
+	public JwtTokenDto execute(@Valid LoginUserDto userLogin) throws AuthenticationValidationException {
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.username(), userLogin.password()));
 
 		if(authentication.isAuthenticated()){
@@ -31,7 +31,7 @@ public class LoginCase {
 		}
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-		return jwtService.generateToken(userDetails);
+		return jwtService.generateAccessToken(userDetails, userDetails.getUser().getId());
 	}
 
 }

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import com.projetospring.chatonline.modules.message.domain.enums.PermissionType;
 import com.projetospring.chatonline.modules.message.domain.validator.PermissionValidatorService;
 import com.projetospring.chatonline.modules.room.aplication.repository.RoomRepository;
+import com.projetospring.chatonline.modules.user.domain.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class SendMessageCase {
 	@Autowired
 	private RoomRepository roomRepository;
 
-	public void execute(@Valid SendMenssageDto sendMenssageDto, User user) {
+	public void execute(@Valid SendMenssageDto sendMenssageDto, UserEntity user) {
 		Room sendForRoom = roomRepository.findById(sendMenssageDto.roomId())
 				.orElseThrow(() -> new RuntimeException("Room not found"));
 
@@ -39,7 +40,7 @@ public class SendMessageCase {
 		repository.save(message);
 	}
 
-	public Message dtoToMessage(String content, User user, Room room) {
+	public Message dtoToMessage(String content, UserEntity user, Room room) {
 		return Message.createMessage(null, user, room, LocalDateTime.now(),
 				content);
 	}

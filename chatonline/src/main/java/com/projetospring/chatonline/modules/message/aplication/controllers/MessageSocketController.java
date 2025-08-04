@@ -5,7 +5,7 @@ import com.projetospring.chatonline.core.security.UserAuthenticationService;
 import com.projetospring.chatonline.infrastructure.security.UserDetailsImpl;
 import com.projetospring.chatonline.modules.message.aplication.dtos.SendMenssageDto;
 import com.projetospring.chatonline.modules.message.domain.cases.SendMessageCase;
-import com.projetospring.chatonline.modules.user.domain.User;
+import com.projetospring.chatonline.modules.user.domain.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -35,7 +35,7 @@ public class MessageSocketController {
                             @Payload SendMenssageDto sendMenssageDto,
                             Principal principal) {
 
-        User user = userAuthenticationService.getUserFromPrincipal(principal);
+        UserEntity user = userAuthenticationService.getUserFromPrincipal(principal);
 
         sendMessageCase.execute(sendMenssageDto, user);
 

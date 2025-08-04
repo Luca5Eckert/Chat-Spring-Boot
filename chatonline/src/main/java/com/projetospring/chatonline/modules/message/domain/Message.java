@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.projetospring.chatonline.modules.room.domain.Room;
-import com.projetospring.chatonline.modules.user.domain.User;
+import com.projetospring.chatonline.modules.user.domain.UserEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +29,7 @@ public class Message {
 
 	@ManyToOne
 	@JoinColumn(name = "sender_id", nullable = false)
-	private final User sendBy;
+	private final UserEntity sendBy;
 
 	@ManyToOne
 	@JoinColumn(name = "room_id", nullable = false)
@@ -41,7 +41,7 @@ public class Message {
 	@Column(nullable = false)
 	private String content;
 
-	private Message(UUID id, User sendBy, Room sendFor, LocalDateTime sendAt, String content) {
+	private Message(UUID id, UserEntity sendBy, Room sendFor, LocalDateTime sendAt, String content) {
 		this.id = id;
 		this.sendBy = sendBy;
 		this.sendFor = sendFor;
@@ -49,7 +49,7 @@ public class Message {
 		this.content = content;
 	}
 
-	public static Message createMessage(UUID id, User sendBy, Room sendFor, LocalDateTime sendAt, String content) {
+	public static Message createMessage(UUID id, UserEntity sendBy, Room sendFor, LocalDateTime sendAt, String content) {
 		return new Message(id, sendBy, sendFor, sendAt, content);
 	}
 
@@ -57,7 +57,7 @@ public class Message {
 		return id;
 	}
 
-	User getSendBy() {
+	UserEntity getSendBy() {
 		return sendBy;
 	}
 

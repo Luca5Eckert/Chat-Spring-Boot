@@ -3,6 +3,7 @@ package com.projetospring.chatonline.infrastructure.security;
 import java.util.Collection;
 import java.util.List;
 
+import com.projetospring.chatonline.modules.user.domain.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,9 +11,9 @@ import com.projetospring.chatonline.modules.user.domain.User;
 
 public final class UserDetailsImpl implements UserDetails {
 
-	private final User user;
+	private final UserEntity user;
 
-	public UserDetailsImpl(User user) {
+	public UserDetailsImpl(UserEntity user) {
 		this.user = user;
 	}
 
@@ -51,7 +52,7 @@ public final class UserDetailsImpl implements UserDetails {
 		return true;
 	}
 
-	public User getUser() {
+	public UserEntity getUser() {
 		return this.user;
 	}
 }

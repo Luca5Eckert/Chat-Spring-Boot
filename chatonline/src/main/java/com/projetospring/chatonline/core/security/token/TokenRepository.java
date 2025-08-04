@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface TokenRepository extends JpaRepository<TokenEntity, String> {
@@ -39,12 +40,12 @@ public interface TokenRepository extends JpaRepository<TokenEntity, String> {
 
     @Modifying
     @Query("UPDATE TokenEntity t SET t.isRevoked = true WHERE t.user.id = :userId")
-    int revokeAllUserTokens(@Param("userId") Long userId);
+    int revokeAllUserTokens(@Param("userId") UUID userId);
 
     @Modifying
     @Query("UPDATE TokenEntity t SET t.isRevoked = true WHERE t.user.id = :userId " +
             "AND t.typeToken = :typeToken")
-    int revokeUserTokensByType(@Param("userId") Long userId,
+    int revokeUserTokensByType(@Param("userId") UUID userId,
                                @Param("typeToken") TypeToken typeToken);
 
 

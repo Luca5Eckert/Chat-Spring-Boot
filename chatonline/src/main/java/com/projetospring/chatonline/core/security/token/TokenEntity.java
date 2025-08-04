@@ -27,22 +27,15 @@ public class TokenEntity {
     @Column(name = "is_revoked", nullable = false)
     private boolean isRevoked;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private final UserEntity user;
-
-
-    public TokenEntity(String tokenInHash, LocalDateTime createsAt, LocalDateTime expiresAt, TypeToken typeToken, boolean isRevoked, UserEntity user) {
+    public TokenEntity(String tokenInHash, LocalDateTime createsAt, LocalDateTime expiresAt, TypeToken typeToken, boolean isRevoked) {
         this.tokenInHash = tokenInHash;
         this.createsAt = createsAt;
         this.expiresAt = expiresAt;
         this.typeToken = typeToken;
         this.isRevoked = isRevoked;
-        this.user = user;
     }
 
     public TokenEntity() {
-        this.user = null;
         this.tokenInHash = null;
         this.createsAt = null;
         this.expiresAt = null;

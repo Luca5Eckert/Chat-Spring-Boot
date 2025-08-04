@@ -1,5 +1,6 @@
 package com.projetospring.chatonline.core.security.cases;
 
+import com.projetospring.chatonline.modules.user.domain.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,6 @@ import com.projetospring.chatonline.modules.user.domain.exceptions.PasswordConfi
 import com.projetospring.chatonline.modules.user.domain.exceptions.UsernameInvalidException;
 import com.projetospring.chatonline.infrastructure.PasswordEncoderCrypto;
 import com.projetospring.chatonline.modules.user.domain.enums.TypeUser;
-import com.projetospring.chatonline.modules.user.domain.User;
 import com.projetospring.chatonline.modules.user.aplication.repository.UserRepository;
 
 @Service
@@ -21,9 +21,9 @@ public class RegisterCase {
 	@Autowired
 	private PasswordEncoderCrypto encoder;
 
-	public User execute(RegistrationUserDto userRegister) {
+	public UserEntity execute(RegistrationUserDto userRegister) {
 		validateRegistrationData(userRegister);
-		User user = registerToUser(userRegister);
+		UserEntity user = registerToUser(userRegister);
 
 		return repository.save(user);
 	}
@@ -55,9 +55,9 @@ public class RegisterCase {
 		}
 	}
 
-	private User registerToUser(RegistrationUserDto userRegister) {
+	private UserEntity registerToUser(RegistrationUserDto userRegister) {
 		String encodedPassword = encoder.encryptPassword(userRegister.password());
-		return User.createUser( userRegister.username(), userRegister.email(), encodedPassword, TypeUser.USER);
+		return UserEntity.createUser( userRegister.username(), userRegister.email(), encodedPassword, TypeUser.USER);
 	}
 
 }
