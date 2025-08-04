@@ -7,7 +7,7 @@ import com.projetospring.chatonline.modules.message.domain.enums.PermissionType;
 import com.projetospring.chatonline.modules.message.domain.validator.PermissionValidatorService;
 import com.projetospring.chatonline.modules.room.aplication.repository.RoomRepository;
 import com.projetospring.chatonline.modules.room.domain.Room;
-import com.projetospring.chatonline.modules.user.domain.User;
+import com.projetospring.chatonline.modules.user.domain.UserEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -36,7 +36,7 @@ class SendMessageCaseTest {
     @InjectMocks
     private SendMessageCase sendMessageCase;
 
-    private final User mockUser = new User();
+    private final UserEntity mockUser = new UserEntity();
     private final Room mockRoom = new Room();
 
     @Test

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.projetospring.chatonline.modules.message.aplication.dtos.SendMenssageDto;
 import com.projetospring.chatonline.modules.message.domain.Message;
 import com.projetospring.chatonline.modules.room.domain.Room;
-import com.projetospring.chatonline.modules.user.domain.User;
 import com.projetospring.chatonline.modules.message.aplication.repository.MessageRepository;
 
 import jakarta.validation.Valid;

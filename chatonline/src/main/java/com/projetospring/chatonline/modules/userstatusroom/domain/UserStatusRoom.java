@@ -1,8 +1,8 @@
 package com.projetospring.chatonline.modules.userstatusroom.domain;
 
+import com.projetospring.chatonline.modules.user.domain.UserEntity;
 import com.projetospring.chatonline.modules.userstatusroom.domain.enums.TypeRoomAccess;
 import com.projetospring.chatonline.modules.room.domain.Room;
-import com.projetospring.chatonline.modules.user.domain.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -56,7 +56,7 @@ public class UserStatusRoom {
 	}
 
 
-	public User getUser() {
+	public UserEntity getUser() {
 		return id.getUser();
 	}
 
@@ -91,7 +91,7 @@ public class UserStatusRoom {
 
 		private boolean active;
 
-		public UserStatusRoomBuilder(User user, Room room) {
+		public UserStatusRoomBuilder(UserEntity user, Room room) {
 			this.id = new UserStatusRoomId(user, room);
 		}
 

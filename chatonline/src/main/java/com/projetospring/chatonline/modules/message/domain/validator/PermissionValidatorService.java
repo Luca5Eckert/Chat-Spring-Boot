@@ -3,7 +3,7 @@ package com.projetospring.chatonline.modules.message.domain.validator;
 import com.projetospring.chatonline.core.exceptions.PermissionUserInvalidException;
 import com.projetospring.chatonline.modules.message.domain.enums.PermissionType;
 import com.projetospring.chatonline.modules.room.domain.Room;
-import com.projetospring.chatonline.modules.user.domain.User;
+import com.projetospring.chatonline.modules.user.domain.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public class PermissionValidatorService {
     }
 
 
-    public boolean hasPermission(User user, Room room, PermissionType permissionType) {
+    public boolean hasPermission(UserEntity user, Room room, PermissionType permissionType) {
         return checkers.stream()
                 .filter(checker -> checker.supports(permissionType))
                 .findFirst()
@@ -28,7 +28,7 @@ public class PermissionValidatorService {
                 .hasPermission(user, room);
     }
 
-    public void checkPermission(User user, Room room, PermissionType permissionType) {
+    public void checkPermission(UserEntity user, Room room, PermissionType permissionType) {
         if (!hasPermission(user, room, permissionType)) {
             throw new PermissionUserInvalidException("User don't have permission: " + permissionType);
         }

@@ -1,7 +1,7 @@
 package com.projetospring.chatonline.modules.userstatusroom.domain;
 
 import com.projetospring.chatonline.modules.room.domain.Room;
-import com.projetospring.chatonline.modules.user.domain.User;
+import com.projetospring.chatonline.modules.user.domain.UserEntity;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -14,7 +14,7 @@ public class UserStatusRoomId implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User user;
+	private UserEntity user;
 
 	@ManyToOne
 	@JoinColumn(name = "room_id")
@@ -23,12 +23,12 @@ public class UserStatusRoomId implements Serializable {
 	public UserStatusRoomId() {
 	}
 
-	public UserStatusRoomId(User user, Room room) {
+	public UserStatusRoomId(UserEntity user, Room room) {
 		this.user = user;
 		this.room = room;
 	}
 
-	public User getUser() {
+	public UserEntity getUser() {
 		return user;
 	}
 

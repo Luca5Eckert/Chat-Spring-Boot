@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.projetospring.chatonline.modules.room.domain.enums.TypeRoom;
-import com.projetospring.chatonline.modules.user.domain.User;
+import com.projetospring.chatonline.modules.user.domain.UserEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -38,9 +38,9 @@ public class Room {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "create_by", nullable = false)
-    private final User createBy;
+    private final UserEntity createBy;
 
-    public Room(UUID id, String nameRoom, TypeRoom type, int numberOfPeople, LocalDateTime createAt, String description, User createBy) {
+    public Room(UUID id, String nameRoom, TypeRoom type, int numberOfPeople, LocalDateTime createAt, String description, UserEntity createBy) {
         this.id = id;
         this.nameRoom = nameRoom;
         this.type = type;
@@ -58,7 +58,7 @@ public class Room {
         this.createBy = null;
     }
 
-    public static Room createRoom(UUID id, String nameRoom, TypeRoom type, int numberOfPeople, LocalDateTime createAt, String description, User createBy) {
+    public static Room createRoom(UUID id, String nameRoom, TypeRoom type, int numberOfPeople, LocalDateTime createAt, String description, UserEntity createBy) {
         return new Room(id, nameRoom, type, numberOfPeople, createAt, description, createBy);
     }
 
