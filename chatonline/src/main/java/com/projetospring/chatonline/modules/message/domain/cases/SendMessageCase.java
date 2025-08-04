@@ -3,6 +3,7 @@ package com.projetospring.chatonline.modules.message.domain.cases;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import com.projetospring.chatonline.modules.room.aplication.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +28,17 @@ public class SendMessageCase {
 	@Autowired
 	private UserStatusRoomRepository repositoryUserStatus;
 
+	@Autowired
+	private RoomRepository roomRepository;
+
 	public void execute(@Valid SendMenssageDto sendMenssageDto, User user) {
-		checkPermissionUser(sendMenssageDto.sendFor(), user);
+		Room sendForRoom = roomRepository.findById(sendMenssageDto.roomId())
+				.orElseThrow(() -> new RuntimeException("Room not found"));
+
+		checkPermissionUser(sendForRoom, user);
+
 		var message = dtoToMessage(sendMenssageDto, user);
+
 		repository.save(message);
 	}
 
