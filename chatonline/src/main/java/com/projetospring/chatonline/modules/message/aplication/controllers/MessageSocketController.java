@@ -4,6 +4,7 @@ import com.projetospring.chatonline.core.exceptions.PermissionUserInvalidExcepti
 import com.projetospring.chatonline.core.security.UserAuthenticationService;
 import com.projetospring.chatonline.infrastructure.security.UserDetailsImpl;
 import com.projetospring.chatonline.modules.message.aplication.dtos.SendMenssageDto;
+import com.projetospring.chatonline.modules.message.aplication.dtos.SendMessageCommand;
 import com.projetospring.chatonline.modules.message.domain.cases.SendMessageCase;
 import com.projetospring.chatonline.modules.user.domain.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,8 @@ public class MessageSocketController {
 
         UserEntity user = userAuthenticationService.getUserFromPrincipal(principal);
 
-        sendMessageCase.execute(sendMenssageDto, user);
+        SendMessageCommand sendMessageCommand = new SendMessageCommand(sendMenssageDto, user);
+        sendMessageCase.execute(sendMessageCommand);
 
         messagingTemplate.convertAndSend("/topic/chat/" + roomId, sendMenssageDto);
     }

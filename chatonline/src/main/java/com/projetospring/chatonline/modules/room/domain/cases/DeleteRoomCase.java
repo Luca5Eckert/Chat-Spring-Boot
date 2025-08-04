@@ -1,16 +1,16 @@
 package com.projetospring.chatonline.modules.room.domain.cases;
 
+import com.projetospring.chatonline.core.cases.UseCase;
+import com.projetospring.chatonline.modules.room.aplication.dtos.DeleteRoomCommand;
 import com.projetospring.chatonline.modules.room.domain.Room;
-import com.projetospring.chatonline.modules.user.domain.UserEntity;
 import com.projetospring.chatonline.modules.userstatusroom.domain.enums.PermissionType;
 import com.projetospring.chatonline.modules.userstatusroom.domain.validator.PermissionValidatorService;
 import org.springframework.stereotype.Service;
 
-import com.projetospring.chatonline.modules.room.aplication.dtos.RoomDto;
 import com.projetospring.chatonline.modules.room.aplication.repository.RoomRepository;
 
 @Service
-public class DeleteRoomCase {
+public class DeleteRoomCase implements UseCase<DeleteRoomCommand, Void> {
     
     private final RoomRepository repository;
 
@@ -23,10 +23,14 @@ public class DeleteRoomCase {
 
 
 
-    public void execute(RoomDto roomDto, UserEntity userEntity){
-        Room room = repository.findById(roomDto.id()).orElseThrow();
+    public Void execute(DeleteRoomCommand deleteRoomCommand){
+        Room room = repository.findById(deleteRoomCommand.roomDto().id()).orElseThrow();
 
-        permissionValidatorService.checkPermission(userEntity, room, PermissionType.DELETE_ROOM);
+        permissionValidatorService.checkPermission(deleteRoomCommand.userEntity(), room, PermissionType.DELETE_ROOM);
+
+
+        return null;
+
     }
 
 
