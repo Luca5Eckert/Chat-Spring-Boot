@@ -73,4 +73,12 @@ public class TokenEntity {
     public void setRevogate(boolean revogate) {
         isRevoked = revogate;
     }
+
+    public boolean isExpired() {
+        return LocalDateTime.now().isAfter(expiresAt);
+    }
+
+    public boolean isValid() {
+        return !isRevoked && !isExpired();
+    }
 }
