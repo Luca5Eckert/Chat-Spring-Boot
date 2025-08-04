@@ -19,23 +19,5 @@ import jakarta.validation.Valid;
 @RestController
 public class UserController {
 
-	@Autowired
-	private LoginCase loginCase;
-
-	@Autowired
-	private RegisterCase registerCase;
-
-	@PostMapping("/api/user/register")
-	public ResponseEntity<?> registerUser(@RequestBody @Valid RegistrationUserDto userRegister) {
-		registerCase.execute(userRegister);
-		return ResponseEntity.accepted().body("Registration completed successfully");
-	}
-
-	@PostMapping("/api/user/login")
-	public ResponseEntity<?> loginInUser(@RequestBody @Valid LoginUserDto userLogin) {
-		JwtTolkenDto jwtToken = loginCase.execute(userLogin);
-		return ResponseEntity.accepted().body( new ResponseDto(200, "Login successful", jwtToken));
-	}
-	
 
 }
