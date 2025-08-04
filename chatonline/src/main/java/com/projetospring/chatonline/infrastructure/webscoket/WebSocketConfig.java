@@ -1,13 +1,17 @@
 package com.projetospring.chatonline.infrastructure.webscoket;
 
+import com.projetospring.chatonline.core.exceptions.PermissionUserInvalidException;
 import com.projetospring.chatonline.infrastructure.security.UserDetailsServiceImpl;
 import com.projetospring.chatonline.infrastructure.tolkens.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+
+import java.security.Principal;
 
 @Configuration
 @EnableWebSocketMessageBroker
@@ -33,6 +37,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .addInterceptors(new JwtHandshakeInterceptor(jwtService, userDetailsService))
                 .withSockJS();
     }
+
     
     
 }

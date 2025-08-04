@@ -37,7 +37,7 @@ public class SendMessageCase {
 
 		checkPermissionUser(sendForRoom, user);
 
-		var message = dtoToMessage(sendMenssageDto, user);
+		var message = dtoToMessage(sendMenssageDto.content(), user, sendForRoom);
 
 		repository.save(message);
 	}
@@ -58,8 +58,8 @@ public class SendMessageCase {
 		return repositoryUserStatus.findById(id);
 	}
 
-	public Message dtoToMessage(SendMenssageDto sendMenssageDto, User user) {
-		return Message.createMessage(null, user, sendMenssageDto.sendFor(), LocalDateTime.now(),
-				sendMenssageDto.content());
+	public Message dtoToMessage(String content, User user, Room room) {
+		return Message.createMessage(null, user, room, LocalDateTime.now(),
+				content);
 	}
 }

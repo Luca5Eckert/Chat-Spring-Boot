@@ -1,11 +1,13 @@
 package com.projetospring.chatonline.modules.message.aplication.controllers;
 
+import com.projetospring.chatonline.core.exceptions.PermissionUserInvalidException;
 import com.projetospring.chatonline.core.security.UserAuthenticationService;
 import com.projetospring.chatonline.infrastructure.security.UserDetailsImpl;
 import com.projetospring.chatonline.modules.message.aplication.dtos.SendMenssageDto;
 import com.projetospring.chatonline.modules.message.domain.cases.SendMessageCase;
 import com.projetospring.chatonline.modules.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -38,5 +40,10 @@ public class MessageSocketController {
         sendMessageCase.execute(sendMenssageDto, user);
 
         messagingTemplate.convertAndSend("/topic/chat/" + roomId, sendMenssageDto);
+    }
+
+    @MessageExceptionHandler(PermissionUserInvalidException.class)
+    public void handlePermissionError(PermissionUserInvalidException ex, Principal principal) {
+        messagingTemplate.convertAndSendToUser(principal.getName(), "/queue/errors", ex.getMessage());
     }
 }
