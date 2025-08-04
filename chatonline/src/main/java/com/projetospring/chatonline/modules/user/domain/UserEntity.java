@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "user_tb")
 @Getter
-public class User {
+public class UserEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,14 +37,14 @@ public class User {
 	@org.hibernate.annotations.CreationTimestamp
 	private LocalDateTime createAt;
 
-	public User(String username, String email, String password, TypeUser type) {
+	public UserEntity(String username, String email, String password, TypeUser type) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.type = type;
 	}
 
-	public User() {
+	public UserEntity() {
 		this.username = null;
 		this.email = null;
 		this.password = null;
@@ -52,8 +52,8 @@ public class User {
 	}
 
 
-	public static User createUser(String username, String email, String password, TypeUser type) {
-		return new User(username, email, password, type);
+	public static UserEntity createUser(String username, String email, String password, TypeUser type) {
+		return new UserEntity(username, email, password, type);
 	}
 
 	public void setUsername(String username) {
