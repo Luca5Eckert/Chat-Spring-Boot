@@ -171,17 +171,6 @@ public class JwtService {
 		}
 	}
 
-	public void revokeAllUserTokens(UUID userId) {
-		tokenRepository.revokeAllUserTokens(userId);
-	}
-
-
-	public void revokeUserAccessTokens(UUID userId) {
-		tokenRepository.revokeUserTokensByType(userId, TypeToken.ACCESS_TOKEN);
-	}
-
-
-
 	private String hashToken(String token) {
 		return DigestUtils.md5DigestAsHex(token.getBytes(StandardCharsets.UTF_8));
 	}

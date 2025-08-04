@@ -1,7 +1,6 @@
 package com.projetospring.chatonline.core.security.token;
 
 import com.projetospring.chatonline.core.security.token.enums.TypeToken;
-import com.projetospring.chatonline.modules.user.domain.UserEntity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
