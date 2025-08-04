@@ -4,5 +4,9 @@ public enum PermissionType {
 
     SEND_MESSAGE,
     EDIT_MESSAGE,
-    DELETE_ROOM
+    EDIT_ROOM,
+    DELETE_ROOM,
+    CREATE_ROOM
+
+
 }

@@ -9,10 +9,13 @@ import com.projetospring.chatonline.modules.userstatusroom.domain.UserStatusRoom
 import com.projetospring.chatonline.modules.userstatusroom.domain.UserStatusRoomId;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class EditMessagePermissionChecker implements  PermissionChecker{
+public class EditMessagePermissionChecker implements PermissionRoomChecker{
 
-    @Autowired
-    private UserStatusRoomRepository repository;
+    private final UserStatusRoomRepository repository;
+
+    public EditMessagePermissionChecker(UserStatusRoomRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public boolean supports(PermissionType permissionType) {

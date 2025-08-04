@@ -12,10 +12,10 @@ import java.util.List;
 @Service
 public class PermissionValidatorService {
 
-    private final List<PermissionChecker> checkers;
+    private final List<PermissionRoomChecker> checkers;
 
     @Autowired
-    public PermissionValidatorService(List<PermissionChecker> checkers) {
+    public PermissionValidatorService(List<PermissionRoomChecker> checkers) {
         this.checkers = checkers;
     }
 

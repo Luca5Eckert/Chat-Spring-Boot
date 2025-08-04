@@ -11,10 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SendMessagePermissionChecker implements PermissionChecker {
+public class SendMessagePermissionChecker implements PermissionRoomChecker {
 
-    @Autowired
-    private UserStatusRoomRepository repository;
+    private final UserStatusRoomRepository repository;
+
+    public SendMessagePermissionChecker(UserStatusRoomRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public boolean supports(PermissionType permissionType) {

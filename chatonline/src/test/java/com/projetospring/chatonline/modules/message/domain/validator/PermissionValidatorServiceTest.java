@@ -4,7 +4,7 @@ import com.projetospring.chatonline.core.exceptions.PermissionUserInvalidExcepti
 import com.projetospring.chatonline.modules.userstatusroom.domain.enums.PermissionType;
 import com.projetospring.chatonline.modules.room.domain.Room;
 import com.projetospring.chatonline.modules.user.domain.UserEntity;
-import com.projetospring.chatonline.modules.userstatusroom.domain.validator.PermissionChecker;
+import com.projetospring.chatonline.modules.userstatusroom.domain.validator.PermissionRoomChecker;
 import com.projetospring.chatonline.modules.userstatusroom.domain.validator.PermissionValidatorService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,10 +22,10 @@ import static org.mockito.Mockito.when;
 class PermissionValidatorServiceTest {
 
     @Mock
-    private PermissionChecker sendChecker;
+    private PermissionRoomChecker sendChecker;
 
     @Mock
-    private PermissionChecker editChecker;
+    private PermissionRoomChecker editChecker;
 
     @InjectMocks
     private PermissionValidatorService permissionValidatorService;
