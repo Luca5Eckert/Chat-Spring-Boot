@@ -1,0 +1,30 @@
+package com.projetospring.chatonline.modules.userstatusroom.domain.validator;
+
+import com.projetospring.chatonline.modules.room.domain.Room;
+import com.projetospring.chatonline.modules.user.domain.UserEntity;
+import com.projetospring.chatonline.modules.userstatusroom.domain.UserStatusRoom;
+import com.projetospring.chatonline.modules.userstatusroom.domain.enums.PermissionType;
+import com.projetospring.chatonline.modules.userstatusroom.domain.services.UserStatusRoomService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class DeleteRoomPermissionChecker implements PermissionChecker{
+
+    @Autowired
+    private final UserStatusRoomService userStatusRoomService;
+
+    public DeleteRoomPermissionChecker(UserStatusRoomService userStatusRoomService) {
+        this.userStatusRoomService = userStatusRoomService;
+    }
+
+
+    @Override
+    public boolean supports(PermissionType permissionType) {
+        return permissionType == PermissionType.DELETE_ROOM;
+    }
+
+    @Override
+    public boolean hasPermission(UserEntity user, Room room) {
+        UserStatusRoom userStatusRoom = userStatusRoomService.getRelationshipUserWithRoom(user, room);
+        return userStatusRoom.canDeleteRoom();
+    }
+}

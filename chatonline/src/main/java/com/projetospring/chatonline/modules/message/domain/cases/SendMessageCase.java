@@ -2,8 +2,8 @@ package com.projetospring.chatonline.modules.message.domain.cases;
 
 import java.time.LocalDateTime;
 
-import com.projetospring.chatonline.modules.message.domain.enums.PermissionType;
-import com.projetospring.chatonline.modules.message.domain.validator.PermissionValidatorService;
+import com.projetospring.chatonline.modules.userstatusroom.domain.enums.PermissionType;
+import com.projetospring.chatonline.modules.userstatusroom.domain.validator.PermissionValidatorService;
 import com.projetospring.chatonline.modules.room.aplication.repository.RoomRepository;
 import com.projetospring.chatonline.modules.user.domain.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,9 +1,11 @@
 package com.projetospring.chatonline.modules.message.domain.validator;
 
 import com.projetospring.chatonline.core.exceptions.PermissionUserInvalidException;
-import com.projetospring.chatonline.modules.message.domain.enums.PermissionType;
+import com.projetospring.chatonline.modules.userstatusroom.domain.enums.PermissionType;
 import com.projetospring.chatonline.modules.room.domain.Room;
 import com.projetospring.chatonline.modules.user.domain.UserEntity;
+import com.projetospring.chatonline.modules.userstatusroom.domain.validator.PermissionChecker;
+import com.projetospring.chatonline.modules.userstatusroom.domain.validator.PermissionValidatorService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
