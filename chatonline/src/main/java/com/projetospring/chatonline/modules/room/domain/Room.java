@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "room_tb")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 public class Room {
     private final static int MAX_PEOPLE = 10;
 
@@ -41,7 +40,7 @@ public class Room {
     @JoinColumn(name = "create_by", nullable = false)
     private final User createBy;
 
-    private Room(UUID id, String nameRoom, TypeRoom type, int numberOfPeople, LocalDateTime createAt, String description, User createBy) {
+    public Room(UUID id, String nameRoom, TypeRoom type, int numberOfPeople, LocalDateTime createAt, String description, User createBy) {
         this.id = id;
         this.nameRoom = nameRoom;
         this.type = type;
@@ -49,6 +48,14 @@ public class Room {
         this.createAt = createAt;
         this.description = description;
         this.createBy = createBy;
+    }
+
+    public Room() {
+
+        this.id = null;
+        this.type = null;
+        this.createAt = null;
+        this.createBy = null;
     }
 
     public static Room createRoom(UUID id, String nameRoom, TypeRoom type, int numberOfPeople, LocalDateTime createAt, String description, User createBy) {

@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "user_tb")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
 	@Id
@@ -38,12 +37,20 @@ public class User {
 	@org.hibernate.annotations.CreationTimestamp
 	private LocalDateTime createAt;
 
-	private User(String username, String email, String password, TypeUser type) {
+	public User(String username, String email, String password, TypeUser type) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.type = type;
 	}
+
+	public User() {
+		this.username = null;
+		this.email = null;
+		this.password = null;
+		this.type = null;
+	}
+
 
 	public static User createUser(String username, String email, String password, TypeUser type) {
 		return new User(username, email, password, type);

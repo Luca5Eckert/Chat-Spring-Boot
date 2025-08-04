@@ -1,6 +1,6 @@
 package com.projetospring.chatonline.modules.user.aplication.dtos;
 
-import com.projetospring.chatonline.model.User;
+import com.projetospring.chatonline.modules.user.domain.User;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 
