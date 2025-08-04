@@ -1,10 +1,9 @@
 package com.projetospring.chatonline.infrastructure.webscoket;
 
 import com.projetospring.chatonline.infrastructure.security.UserDetailsServiceImpl;
-import com.projetospring.chatonline.infrastructure.tolkens.JwtService;
+import com.projetospring.chatonline.infrastructure.tokens.JwtService;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServletServerHttpRequest;
-import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.socket.WebSocketHandler;

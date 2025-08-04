@@ -1,4 +1,4 @@
-package com.projetospring.chatonline.infrastructure.tolkens;
+package com.projetospring.chatonline.infrastructure.tokens;
 
 import java.io.IOException;
 

@@ -2,7 +2,7 @@ package com.projetospring.chatonline.core.security.cases;
 
 import com.projetospring.chatonline.core.dtos.JwtTokenDto;
 import com.projetospring.chatonline.infrastructure.security.UserDetailsImpl;
-import com.projetospring.chatonline.infrastructure.tolkens.JwtService;
+import com.projetospring.chatonline.infrastructure.tokens.JwtService;
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

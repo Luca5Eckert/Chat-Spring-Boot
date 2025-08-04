@@ -12,8 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.projetospring.chatonline.infrastructure.tolkens.JwtAuthenticationFilter;
-import com.projetospring.chatonline.infrastructure.tolkens.JwtService;
+import com.projetospring.chatonline.infrastructure.tokens.JwtAuthenticationFilter;
+import com.projetospring.chatonline.infrastructure.tokens.JwtService;
 
 @Configuration
 @EnableWebSecurity
