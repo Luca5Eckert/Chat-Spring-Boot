@@ -10,7 +10,6 @@ import lombok.Getter;
 
 @Entity
 @Table(name = "room_tb")
-@Getter
 public class Room {
     private final static int MAX_PEOPLE = 10;
 
@@ -100,6 +99,18 @@ public class Room {
 
     LocalDateTime getCreateAt() {
         return createAt;
+    }
+
+    public String getNameRoom() {
+        return nameRoom;
+    }
+
+    public UserEntity getCreateBy() {
+        return createBy;
+    }
+
+    public long getVersion() {
+        return version;
     }
 
 }
