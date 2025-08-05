@@ -3,10 +3,10 @@ package com.projetospring.chatonline.modules.room.domain.cases;
 import com.projetospring.chatonline.core.cases.UseCase;
 import com.projetospring.chatonline.modules.room.aplication.dtos.EditRoomDto;
 
-public class EditRoomCase implements UseCase<EditRoomDto, Void> {
+public class EditRoomCase implements UseCase<EditRoomDto[], Void> {
 
     @Override
-    public Void execute(EditRoomDto editRoomCommand) {
+    public Void execute(EditRoomDto[] editRoomDtos) {
         return null;
     }
 }

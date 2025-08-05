@@ -1,4 +1,4 @@
-package com.projetospring.chatonline.modules.room.aplication.commands;
+package com.projetospring.chatonline.modules.room.domain.commands;
 
 import com.projetospring.chatonline.core.enums.TypeEdit;
 import com.projetospring.chatonline.modules.room.domain.Room;
