@@ -5,14 +5,7 @@ import java.util.UUID;
 
 import com.projetospring.chatonline.modules.room.domain.Room;
 import com.projetospring.chatonline.modules.user.domain.UserEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,6 +33,9 @@ public class Message {
 
 	@Column(nullable = false)
 	private String content;
+
+	@Version
+	private long version;
 
 	private Message(UUID id, UserEntity sendBy, Room sendFor, LocalDateTime sendAt, String content) {
 		this.id = id;

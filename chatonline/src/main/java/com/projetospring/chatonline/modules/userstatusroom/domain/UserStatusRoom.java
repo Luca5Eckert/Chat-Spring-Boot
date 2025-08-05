@@ -3,10 +3,7 @@ package com.projetospring.chatonline.modules.userstatusroom.domain;
 import com.projetospring.chatonline.modules.user.domain.UserEntity;
 import com.projetospring.chatonline.modules.userstatusroom.domain.enums.TypeRoomAccess;
 import com.projetospring.chatonline.modules.room.domain.Room;
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -26,6 +23,9 @@ public class UserStatusRoom {
 
 	@Column(nullable = false)
 	private boolean active;
+
+	@Version
+	private long version;
 
 	private UserStatusRoom(@NotNull UserStatusRoomBuilder userStatusRoomBuilder) {
 		this.id = userStatusRoomBuilder.id;

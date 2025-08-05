@@ -37,6 +37,9 @@ public class UserEntity {
 	@org.hibernate.annotations.CreationTimestamp
 	private LocalDateTime createAt;
 
+	@Version
+	private long version;
+
 	public UserEntity(String username, String email, String password, TypeUser type) {
 		this.username = username;
 		this.email = email;

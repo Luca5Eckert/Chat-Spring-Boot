@@ -38,6 +38,9 @@ public class Room {
     @JoinColumn(name = "create_by", nullable = false)
     private final UserEntity createBy;
 
+    @Version
+    private long version;
+
     public Room(UUID id, String nameRoom, TypeRoom type, int numberOfPeople, LocalDateTime createAt, String description, UserEntity createBy) {
         this.id = id;
         this.nameRoom = nameRoom;
