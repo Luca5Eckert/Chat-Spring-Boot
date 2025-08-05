@@ -5,7 +5,6 @@ import com.projetospring.chatonline.modules.room.aplication.dtos.EditRoomDto;
 
 public class EditRoomCase implements UseCase<EditRoomDto, Void> {
 
-
     @Override
     public Void execute(EditRoomDto editRoomCommand) {
         return null;

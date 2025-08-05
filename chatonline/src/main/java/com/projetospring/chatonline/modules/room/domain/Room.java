@@ -109,6 +109,14 @@ public class Room {
         return createBy;
     }
 
+    public void setNameRoom(String nameRoom) {
+        this.nameRoom = nameRoom;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
+    }
+
     public long getVersion() {
         return version;
     }
