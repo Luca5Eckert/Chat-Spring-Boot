@@ -1,14 +1,23 @@
 package com.projetospring.chatonline.modules.room.aplication.repository;
 
+import com.projetospring.chatonline.modules.room.domain.Room;
+import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-import com.projetospring.chatonline.modules.room.domain.Room;
+public interface RoomRepository {
 
-@Repository
-public interface RoomRepository extends JpaRepository<Room, UUID>  {
+    Optional<Room> findById(UUID idRoom);
 
-    public void deleteById(UUID id); 
+    List<Room> findAll();
+
+    Room save(Room room);
+
+    void deleteById(UUID idRoom);
+
+    boolean existsById(UUID idRoom);
+
 }
