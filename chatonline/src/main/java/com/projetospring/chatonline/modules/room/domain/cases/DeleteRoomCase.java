@@ -28,7 +28,6 @@ public class DeleteRoomCase implements UseCase<DeleteRoomCommand, Void> {
 
         permissionValidatorService.checkPermission(deleteRoomCommand.userEntity(), room, PermissionType.DELETE_ROOM);
 
-
         return null;
 
     }
