@@ -1,6 +1,7 @@
 package com.projetospring.chatonline.modules.message.domain.cases;
 
 import com.projetospring.chatonline.modules.message.aplication.dtos.SendMenssageDto;
+import com.projetospring.chatonline.modules.message.aplication.dtos.SendMessageCommand;
 import com.projetospring.chatonline.modules.message.aplication.repository.MessageRepository;
 import com.projetospring.chatonline.modules.message.domain.Message;
 import com.projetospring.chatonline.modules.userstatusroom.domain.enums.PermissionType;
@@ -44,14 +45,15 @@ class SendMessageCaseTest {
         // Arrange
         UUID roomId = UUID.randomUUID();
         SendMenssageDto dto = new SendMenssageDto("Hello World", roomId);
+        SendMessageCommand command = new SendMessageCommand(dto, mockUser);
         when(roomRepository.findById(roomId)).thenReturn(Optional.of(mockRoom));
-        when(permissionValidatorService.hasPermission(mockUser, mockRoom, PermissionType.SEND_MESSAGE)).thenReturn(true);
+        doNothing().when(permissionValidatorService).checkPermission(mockUser, mockRoom, PermissionType.SEND_MESSAGE);
 
         // Act
-        sendMessageCase.execute(dto, mockUser);
+        sendMessageCase.execute(command);
 
         // Assert
-        verify(permissionValidatorService).hasPermission(mockUser, mockRoom, PermissionType.SEND_MESSAGE);
+        verify(permissionValidatorService).checkPermission(mockUser, mockRoom, PermissionType.SEND_MESSAGE);
         verify(messageRepository).save(any(Message.class));
     }
 
@@ -59,10 +61,11 @@ class SendMessageCaseTest {
     void givenNonExistentRoom_whenExecute_thenThrowException() {
         UUID roomId = UUID.randomUUID();
         SendMenssageDto dto = new SendMenssageDto("Fail", roomId);
+        SendMessageCommand command = new SendMessageCommand(dto, mockUser);
         when(roomRepository.findById(roomId)).thenReturn(Optional.empty());
 
-        assertThrows(RuntimeException.class, () -> sendMessageCase.execute(dto, mockUser));
-        verify(permissionValidatorService, never()).hasPermission(any(), any(), any());
+        assertThrows(RuntimeException.class, () -> sendMessageCase.execute(command));
+        verify(permissionValidatorService, never()).checkPermission(any(), any(), any());
         verify(messageRepository, never()).save(any());
     }
 
@@ -70,11 +73,12 @@ class SendMessageCaseTest {
     void givenNoPermission_whenExecute_thenThrowException() {
         UUID roomId = UUID.randomUUID();
         SendMenssageDto dto = new SendMenssageDto("No access", roomId);
+        SendMessageCommand command = new SendMessageCommand(dto, mockUser);
         when(roomRepository.findById(roomId)).thenReturn(Optional.of(mockRoom));
-        when(permissionValidatorService.hasPermission(mockUser, mockRoom, PermissionType.SEND_MESSAGE)).thenReturn(false);
+        doThrow(new RuntimeException("Permission denied")).when(permissionValidatorService).checkPermission(mockUser, mockRoom, PermissionType.SEND_MESSAGE);
 
-        assertThrows(RuntimeException.class, () -> sendMessageCase.execute(dto, mockUser));
-        verify(permissionValidatorService).hasPermission(mockUser, mockRoom, PermissionType.SEND_MESSAGE);
+        assertThrows(RuntimeException.class, () -> sendMessageCase.execute(command));
+        verify(permissionValidatorService).checkPermission(mockUser, mockRoom, PermissionType.SEND_MESSAGE);
         verify(messageRepository, never()).save(any());
     }
 }

@@ -20,4 +20,6 @@ public interface MessageRepository{
 
     boolean existsById(UUID idMessage);
 
+    List<Message> findByRoomId(UUID roomId);
+
 }
