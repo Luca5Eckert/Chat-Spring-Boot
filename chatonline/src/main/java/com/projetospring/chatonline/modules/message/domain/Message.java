@@ -49,24 +49,28 @@ public class Message {
 		return new Message(id, sendBy, sendFor, sendAt, content);
 	}
 
-	UUID getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	UserEntity getSendBy() {
+	public UserEntity getSendBy() {
 		return sendBy;
 	}
 
-	Room getSendFor() {
+	public Room getSendFor() {
 		return sendFor;
 	}
 
-	LocalDateTime getSendAt() {
+	public LocalDateTime getSendAt() {
 		return sendAt;
 	}
 
-	String getContent() {
+	public String getContent() {
 		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 }

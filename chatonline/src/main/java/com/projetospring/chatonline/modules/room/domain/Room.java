@@ -74,31 +74,31 @@ public class Room {
         this.description = description;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    boolean isItFull() {
+    public boolean isItFull() {
         return numberOfPeople == MAX_PEOPLE;
     }
 
-    static int getMaxPeople() {
+    public static int getMaxPeople() {
         return MAX_PEOPLE;
     }
 
-    UUID getId() {
+    public UUID getId() {
         return id;
     }
 
-    TypeRoom getType() {
+    public TypeRoom getType() {
         return type;
     }
 
-    int getNumberOfPeople() {
+    public int getNumberOfPeople() {
         return numberOfPeople;
     }
 
-    LocalDateTime getCreateAt() {
+    public LocalDateTime getCreateAt() {
         return createAt;
     }
 

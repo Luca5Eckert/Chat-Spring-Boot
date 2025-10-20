@@ -38,4 +38,11 @@ public class MessageRepositoryImpl implements MessageRepository {
     public boolean existsById(UUID idMessage) {
         return jpaMessageRepository.existsById(idMessage);
     }
+
+    @Override
+    public List<Message> findByRoomId(UUID roomId) {
+        return jpaMessageRepository.findAll().stream()
+                .filter(message -> message.getSendFor().getId().equals(roomId))
+                .toList();
+    }
 }
